@@ -8,14 +8,14 @@ const PartnersSection: React.FC = () => {
 
   // Логотипы партнёров (используем существующие из скриншота)
   const partners = [
-    { name: "Элинар", logo: "/logos/elinar-logo.jpg" },
+    { name: "Элинар", logo: "https://elinar.ru/wp-content/uploads/2017/10/logo-en.png" },
     { name: "НарПромСервис", logo: "/logos/narprom-logo.jpg" },
     { name: "Горхимпром", logo: "/logos/partner-3.jpg" },
     { name: "Елагин", logo: "/logos/partner-4.jpg" },
     { name: "Партнер 5", logo: "/logos/partner-5.jpg" },
     { name: "ПК", logo: "/logos/partner-6.jpg" },
     { name: "ЭКО", logo: "/logos/partner-7.jpg" },
-    { name: "Элинар", logo: "/logos/elinar-logo.jpg" },
+    { name: "Элинар", logo: "https://elinar.ru/wp-content/uploads/2017/10/logo-en.png" },
     { name: "НарПромСервис", logo: "/logos/narprom-logo.jpg" },
     { name: "Горхимпром", logo: "/logos/partner-3.jpg" },
     { name: "Елагин", logo: "/logos/partner-4.jpg" },

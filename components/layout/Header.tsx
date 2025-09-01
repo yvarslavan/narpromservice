@@ -87,7 +87,7 @@ const Header: React.FC = () => {
                     transition={{ duration: 0.2 }}
                   >
                   <img
-                    src="https://optim.tildacdn.com/tild6637-3532-4263-b061-653564373337/-/resize/104x/-/format/webp/logo-en_1.png.webp"
+                    src="https://elinar.ru/wp-content/uploads/2017/10/logo-en.png"
                     alt="ELINAR"
                       className="h-8 w-auto object-contain transition-all duration-300"
                     />
