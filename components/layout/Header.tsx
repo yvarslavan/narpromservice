@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Phone, Search, Menu, X, ChevronDown, Home, FolderOpen, Settings, Newspaper } from 'lucide-react';
+import { Phone, Search, Menu, X, ChevronDown, Home, FolderOpen, Settings, Newspaper, ArrowRight, MapPin, Calendar, Users } from 'lucide-react';
 
 // Конфигурация языков
 const languages = [
@@ -18,10 +18,116 @@ const navigationItems = [
   { href: '#contacts', label: 'Контакты', icon: Phone },
 ];
 
+// Данные для поиска по сайту
+const searchData = [
+  // О компании
+  {
+    title: 'О компании НарПромСервис',
+    content: 'Производство и модернизация промышленного оборудования, металлоконструкций, сварочные работы',
+    section: 'О компании',
+    href: '#about',
+    icon: Home,
+    tags: ['производство', 'оборудование', 'металлоконструкции', 'сварка']
+  },
+  {
+    title: 'Группа компаний',
+    content: 'НарПромСервис входит в группу компаний ELINAR, специализирующуюся на промышленном оборудовании',
+    section: 'О компании',
+    href: '#about',
+    icon: Users,
+    tags: ['группа компаний', 'ELINAR', 'промышленное оборудование']
+  },
+
+  // Проекты
+  {
+    title: 'Промышленные проекты',
+    content: 'Реализация проектов по производству и модернизации промышленного оборудования',
+    section: 'Проекты',
+    href: '#projects',
+    icon: FolderOpen,
+    tags: ['проекты', 'промышленное оборудование', 'модернизация']
+  },
+  {
+    title: 'Металлоконструкции',
+    content: 'Изготовление металлоконструкций для промышленных объектов',
+    section: 'Проекты',
+    href: '#projects',
+    icon: FolderOpen,
+    tags: ['металлоконструкции', 'изготовление', 'промышленные объекты']
+  },
+
+  // Услуги
+  {
+    title: 'Электромонтажные работы',
+    content: 'Выполнение электромонтажных работ на промышленных объектах',
+    section: 'Услуги',
+    href: '#services',
+    icon: Settings,
+    tags: ['электромонтаж', 'электрика', 'промышленные объекты']
+  },
+  {
+    title: 'Сварочные работы',
+    content: 'Профессиональные сварочные работы любой сложности',
+    section: 'Услуги',
+    href: '#services',
+    icon: Settings,
+    tags: ['сварка', 'сварочные работы', 'металл']
+  },
+  {
+    title: 'Модернизация оборудования',
+    content: 'Модернизация и ремонт промышленного оборудования',
+    section: 'Услуги',
+    href: '#services',
+    icon: Settings,
+    tags: ['модернизация', 'ремонт', 'оборудование']
+  },
+  {
+    title: 'Токарно-фрезерные работы',
+    content: 'Токарные и фрезерные работы на современном оборудовании',
+    section: 'Услуги',
+    href: '#services',
+    icon: Settings,
+    tags: ['токарные работы', 'фрезерные работы', 'обработка металла']
+  },
+
+  // Новости
+  {
+    title: 'Новости компании',
+    content: 'Актуальные новости о проектах и достижениях НарПромСервис',
+    section: 'Новости',
+    href: '#news',
+    icon: Newspaper,
+    tags: ['новости', 'проекты', 'достижения']
+  },
+
+  // Контакты
+  {
+    title: 'Контакты НарПромСервис',
+    content: 'Свяжитесь с нами для обсуждения ваших проектов и получения консультации',
+    section: 'Контакты',
+    href: '#contacts',
+    icon: MapPin,
+    tags: ['контакты', 'связь', 'консультация', 'проекты']
+  },
+  {
+    title: 'Телефон: +7 (495) 509-03-16',
+    content: 'Основной телефон для связи с НарПромСервис',
+    section: 'Контакты',
+    href: '#contacts',
+    icon: Phone,
+    tags: ['телефон', 'звонок', 'связь']
+  }
+];
+
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState(languages[0]);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<typeof searchData>([]);
+  const [isSearchResultsOpen, setIsSearchResultsOpen] = useState(false);
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
@@ -31,15 +137,78 @@ const Header: React.FC = () => {
     setIsLanguageDropdownOpen(false);
   };
 
+  const toggleSearch = () => {
+    setIsSearchOpen(!isSearchOpen);
+    if (!isSearchOpen) {
+      setSearchQuery('');
+      setSearchResults([]);
+      setIsSearchResultsOpen(false);
+    }
+  };
+
+  const toggleContact = () => {
+    setIsContactOpen(!isContactOpen);
+  };
+
+  // Функция поиска
+  const performSearch = (query: string) => {
+    if (!query.trim()) {
+      setSearchResults([]);
+      setIsSearchResultsOpen(false);
+      return;
+    }
+
+    const lowerQuery = query.toLowerCase();
+    const results = searchData.filter(item =>
+      item.title.toLowerCase().includes(lowerQuery) ||
+      item.content.toLowerCase().includes(lowerQuery) ||
+      item.section.toLowerCase().includes(lowerQuery) ||
+      item.tags.some(tag => tag.toLowerCase().includes(lowerQuery))
+    );
+
+    setSearchResults(results);
+    setIsSearchResultsOpen(true);
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      performSearch(searchQuery);
+    }
+  };
+
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    performSearch(value);
+  };
+
+  const handleResultClick = (href: string) => {
+    setIsSearchOpen(false);
+    setIsSearchResultsOpen(false);
+    setSearchQuery('');
+    setSearchResults([]);
+
+    // Плавная прокрутка к секции
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const closeSearchResults = () => {
+    setIsSearchResultsOpen(false);
+  };
+
   return (
     <>
       {/* Основной хедер */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-lg border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between py-4">
+          <div className="flex items-center justify-between py-3">
 
             {/* Логотипы */}
-            <div className="flex items-center gap-6 min-w-[260px]">
+            <div className="flex items-center gap-6 min-w-[320px]">
               <div className="flex items-center gap-6">
                 {/* Логотип НарПромСервис */}
                 <div className="h-16 flex items-center justify-center">
@@ -47,7 +216,7 @@ const Header: React.FC = () => {
                     <img
                       src="/logos/narprom-logo.jpg"
                       alt="НарПромСервис"
-                      className="h-12 w-auto object-contain group-hover:scale-105 transition-all duration-300 filter group-hover:drop-shadow-lg"
+                      className="h-12 w-auto object-contain group-hover:scale-110 group-hover:drop-shadow-xl transition-all duration-500 ease-out filter group-hover:brightness-110"
                       onError={(e) => {
                         console.log('Ошибка загрузки логотипа НарПромСервис, пробуем внешний URL');
                         e.currentTarget.src = "https://optim.tildacdn.com/tild6237-6261-4663-b064-336361316438/-/resize/249x/-/format/webp/LOGOTYPE_NAR_PROM_SE.png.webp";
@@ -60,7 +229,7 @@ const Header: React.FC = () => {
                         };
                       }}
                     />
-                    <div className="hidden h-12 flex items-center justify-center bg-blue-600 text-white font-bold text-sm rounded-lg px-3 group-hover:scale-105 transition-all duration-300">
+                    <div className="hidden h-12 flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold text-sm rounded-lg px-3 group-hover:scale-110 group-hover:drop-shadow-xl transition-all duration-500 ease-out shadow-lg">
                       НарПромСервис
                     </div>
                   </a>
@@ -80,7 +249,7 @@ const Header: React.FC = () => {
                     <img
                       src="/logos/elinar-logo.jpg"
                       alt="ELINAR"
-                      className="h-10 w-auto object-contain group-hover:scale-105 transition-all duration-300 filter group-hover:drop-shadow-lg"
+                      className="h-10 w-auto object-contain group-hover:scale-110 group-hover:drop-shadow-xl transition-all duration-500 ease-out filter group-hover:brightness-110"
                       onError={(e) => {
                         console.log('Ошибка загрузки логотипа ELINAR, пробуем внешний URL');
                         e.currentTarget.src = "https://elinar.ru/wp-content/uploads/2017/10/logo-en.png";
@@ -93,7 +262,7 @@ const Header: React.FC = () => {
                         };
                       }}
                     />
-                    <div className="hidden h-10 flex items-center justify-center bg-orange-600 text-white font-bold text-sm rounded-lg px-3 group-hover:scale-105 transition-all duration-300">
+                    <div className="hidden h-10 flex items-center justify-center bg-gradient-to-r from-orange-600 to-orange-700 text-white font-bold text-sm rounded-lg px-3 group-hover:scale-110 group-hover:drop-shadow-xl transition-all duration-500 ease-out shadow-lg">
                       ELINAR
                     </div>
                   </a>
@@ -121,8 +290,8 @@ const Header: React.FC = () => {
                       className="flex items-center gap-2 px-4 py-2 text-gray-800 font-semibold text-sm transition-all duration-300 rounded-lg hover:text-white hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-600 group overflow-hidden"
                     >
                       {IconComponent && (
-                        <div className={`w-6 h-6 bg-gradient-to-r ${iconColors[index]} rounded-md flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-3`}>
-                          <IconComponent size={14} className="text-white group-hover:scale-110 transition-transform duration-300" />
+                        <div className={`w-7 h-7 bg-gradient-to-r ${iconColors[index]} rounded-md flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-3`}>
+                          <IconComponent size={15} className="text-white group-hover:scale-110 transition-transform duration-300" />
                         </div>
                       )}
                       <span className="hidden xl:inline">{item.label}</span>
@@ -168,11 +337,17 @@ const Header: React.FC = () => {
 
               {/* Иконки поиска и звонка */}
               <div className="flex items-center gap-2">
-                <button className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-colors duration-300">
+                <button
+                  onClick={toggleSearch}
+                  className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-colors duration-300"
+                >
                   <Search size={18} className="text-white" />
                 </button>
 
-                <button className="w-10 h-10 bg-cyan-500 rounded-full flex items-center justify-center shadow-lg hover:bg-cyan-600 transition-colors duration-300">
+                <button
+                  onClick={toggleContact}
+                  className="w-10 h-10 bg-cyan-500 rounded-full flex items-center justify-center shadow-lg hover:bg-cyan-600 transition-colors duration-300"
+                >
                   <Phone size={18} className="text-white" />
                 </button>
               </div>
@@ -270,12 +445,25 @@ const Header: React.FC = () => {
             <div className="p-6 border-t border-gray-200">
               <h4 className="text-sm font-bold text-gray-600 uppercase tracking-wide mb-4">Контакты</h4>
               <div className="flex gap-3">
-                <button className="flex-1 h-14 bg-blue-500 rounded-xl flex items-center justify-center gap-3 shadow-lg hover:bg-blue-600 transition-colors duration-300">
+                <button
+                  onClick={() => {
+                    closeMobileMenu();
+                    toggleSearch();
+                  }}
+                  className="flex-1 h-14 bg-blue-500 rounded-xl flex items-center justify-center gap-3 shadow-lg hover:bg-blue-600 transition-colors duration-300"
+                >
                   <Search size={20} className="text-white" />
                   <span className="text-white font-bold text-base">Поиск</span>
                 </button>
 
-                <button className="flex-1 h-14 bg-cyan-500 rounded-xl flex items-center justify-center gap-3 shadow-lg hover:bg-cyan-600 transition-colors duration-300">
+                <button
+                  onClick={() => {
+                    closeMobileMenu();
+                    // Инициализация телефонного звонка
+                    window.location.href = 'tel:+74955090316';
+                  }}
+                  className="flex-1 h-14 bg-cyan-500 rounded-xl flex items-center justify-center gap-3 shadow-lg hover:bg-cyan-600 transition-colors duration-300"
+                >
                   <Phone size={20} className="text-white" />
                   <span className="text-white font-bold text-base">Звонок</span>
                 </button>
@@ -286,7 +474,208 @@ const Header: React.FC = () => {
       )}
 
       {/* Spacer для fixed header */}
-      <div className="h-32" />
+      <div className="h-24" />
+
+      {/* Строка поиска */}
+      {isSearchOpen && (
+        <div className="fixed top-24 left-0 right-0 z-40 bg-white shadow-lg border-b border-gray-200 animate-in slide-in-from-top-2 duration-300">
+          <div className="max-w-7xl mx-auto px-4 py-3">
+            <form onSubmit={handleSearchSubmit} className="flex items-center gap-3">
+              <div className="flex-1 relative">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={handleSearchInputChange}
+                  placeholder="Поиск по сайту..."
+                  className="w-full px-4 py-3 pl-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-300 text-sm"
+                  autoFocus
+                />
+                <Search size={20} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              </div>
+              <button
+                type="submit"
+                className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-300 font-semibold text-sm"
+              >
+                Найти
+              </button>
+              <button
+                type="button"
+                onClick={toggleSearch}
+                className="px-4 py-3 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-300 text-sm"
+              >
+                Отмена
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Модальное окно контактов */}
+      {isContactOpen && (
+        <>
+          {/* Затемняющий overlay */}
+          <div
+            className="fixed inset-0 bg-black/50 z-40"
+            onClick={toggleContact}
+          />
+
+          {/* Модальное окно */}
+          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-white rounded-xl shadow-2xl p-8 max-w-md w-full mx-4 animate-in zoom-in-95 duration-300">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-2xl font-bold text-gray-800">Контакты</h3>
+              <button
+                onClick={toggleContact}
+                className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="space-y-6">
+              {/* Телефон */}
+              <div className="flex items-center gap-4 p-4 bg-blue-50 rounded-lg">
+                <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
+                  <Phone size={24} className="text-white" />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600">Телефон</p>
+                  <p className="text-lg font-bold text-gray-800">+7 (495) 509-03-16</p>
+                </div>
+              </div>
+
+              {/* Email */}
+              <div className="flex items-center gap-4 p-4 bg-green-50 rounded-lg">
+                <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600">Email</p>
+                  <p className="text-lg font-bold text-gray-800">info@narpromservice.ru</p>
+                </div>
+              </div>
+
+              {/* Адрес */}
+              <div className="flex items-center gap-4 p-4 bg-orange-50 rounded-lg">
+                <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600">Адрес</p>
+                  <p className="text-lg font-bold text-gray-800">г. Москва, ул. Примерная, 123</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 flex gap-3">
+              <button
+                onClick={toggleContact}
+                className="flex-1 px-6 py-3 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition-colors duration-300 font-semibold"
+              >
+                Закрыть
+              </button>
+              <button
+                onClick={() => {
+                  // Инициализация телефонного звонка
+                  window.location.href = 'tel:+74955090316';
+                  toggleContact();
+                }}
+                className="flex-1 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-300 font-semibold"
+              >
+                Позвонить
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Модальное окно результатов поиска */}
+      {isSearchResultsOpen && (
+        <>
+          {/* Затемняющий overlay */}
+          <div
+            className="fixed inset-0 bg-black/30 z-30"
+            onClick={closeSearchResults}
+          />
+
+          <div className="fixed top-24 left-0 right-0 z-40 bg-white shadow-xl border-b border-gray-200 animate-in slide-in-from-top-2 duration-300 max-h-[70vh] overflow-y-auto">
+            <div className="max-w-7xl mx-auto px-4 py-4">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <Search size={24} className="text-blue-500" />
+                  <h3 className="text-xl font-bold text-gray-800">
+                    Результаты поиска: "{searchQuery}"
+                  </h3>
+                </div>
+                <button
+                  onClick={closeSearchResults}
+                  className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              {searchResults.length === 0 ? (
+                <div className="text-center py-12">
+                  <Search size={48} className="text-gray-300 mx-auto mb-4" />
+                  <p className="text-gray-500 text-lg mb-2">По вашему запросу ничего не найдено</p>
+                  <p className="text-gray-400 text-sm">Попробуйте изменить поисковый запрос</p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {searchResults.map((item, index) => {
+                    const IconComponent = item.icon;
+                    return (
+                      <div
+                        key={index}
+                        className="bg-white border border-gray-200 p-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer group"
+                        onClick={() => handleResultClick(item.href)}
+                      >
+                        <div className="flex items-start gap-4">
+                          <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-200">
+                            <IconComponent size={24} className="text-white" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="text-lg font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors duration-200">
+                              {item.title}
+                            </h4>
+                            <p className="text-gray-600 text-sm mb-3 leading-relaxed">
+                              {item.content}
+                            </p>
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2 text-gray-500 text-xs">
+                                <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium">
+                                  {item.section}
+                                </span>
+                                <span className="text-gray-400">•</span>
+                                <span className="text-gray-500">
+                                  {item.tags.slice(0, 3).join(', ')}
+                                  {item.tags.length > 3 && '...'}
+                                </span>
+                              </div>
+                              <ArrowRight size={16} className="text-gray-400 group-hover:text-blue-500 group-hover:translate-x-1 transition-all duration-200" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              <div className="mt-6 pt-4 border-t border-gray-200">
+                <p className="text-gray-500 text-sm text-center">
+                  Найдено результатов: {searchResults.length}
+                </p>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
 
       {/* Click outside handler для языкового dropdown */}
       {isLanguageDropdownOpen && (
