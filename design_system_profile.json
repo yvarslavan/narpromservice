@@ -1,0 +1,453 @@
+{
+  "designSystem": {
+    "metadata": {
+      "name": "NAR PromService Design System",
+      "version": "1.0",
+      "description": "Комплексная система дизайна для веб-приложений компании",
+      "lastUpdated": "2024"
+    },
+    "global": {
+      "fontFamily": {
+        "primary": "Inter, sans-serif",
+        "fallback": "Arial, sans-serif",
+        "description": "Основной шрифт для всего приложения"
+      },
+      "baseFontSize": "16px",
+      "lineHeight": "1.5",
+      "pageBackground": {
+        "primary": "#FFFFFF",
+        "secondary": "#F8F8F8",
+        "description": "Основной белый фон страниц, вторичный светло-серый для секций"
+      }
+    },
+    "colors": {
+      "primary": {
+        "blue": "#1976D2",
+        "blueHover": "#1565C0",
+        "blueDark": "#0D47A1",
+        "blueDarker": "#0A3D91",
+        "description": "Material Design Blue 700 - основной синий цвет бренда"
+      },
+      "accent": {
+        "cyan": "#00BCD4",
+        "cyanEnd": "#0097A7",
+        "indigo": "#3F51B5",
+        "purple": "#9C27B0",
+        "description": "Material Design Cyan и дополнительные акцентные цвета"
+      },
+      "text": {
+        "heading": "#333333",
+        "headingPrimary": "#2C3E50",
+        "headingSecondary": "#212529",
+        "body": "#666666",
+        "bodySecondary": "#495057",
+        "bodyTertiary": "#ADB5BD",
+        "bodyInverted": "#FFFFFF",
+        "placeholder": "#999999",
+        "link": "#85C1E9",
+        "description": "Цветовая палитра для текста разных уровней иерархии"
+      },
+      "neutral": {
+        "white": "#FFFFFF",
+        "lightGray": "#F0F0F0",
+        "mediumGray": "#DDDDDD",
+        "darkGray": "#CCCCCC",
+        "description": "Нейтральные цвета для фонов и границ"
+      },
+      "background": {
+        "card": "#F8F9FA",
+        "lightBlue": "#E3F2FD",
+        "dark": "#34495E",
+        "description": "Цвета фонов для различных компонентов"
+      },
+      "shadows": {
+        "subtle": "rgba(0, 0, 0, 0.05)",
+        "card": "rgba(0, 0, 0, 0.08)",
+        "button": "rgba(0, 0, 0, 0.1)",
+        "medium": "rgba(0, 0, 0, 0.15)",
+        "strong": "rgba(0, 0, 0, 0.2)",
+        "description": "Цвета теней с разной интенсивностью"
+      },
+      "special": {
+        "red": "#FF0000",
+        "yellow": "#FFD700",
+        "lime": "#CCFF00",
+        "description": "Специальные цвета для иконок и акцентов"
+      }
+    },
+    "typography": {
+      "h1": {
+        "fontSize": "40px",
+        "fontWeight": "700",
+        "color": "#333333",
+        "textTransform": "uppercase",
+        "letterSpacing": "0.05em",
+        "context": "Главные заголовки секций на светлом фоне"
+      },
+      "h1OnDark": {
+        "fontSize": "40px",
+        "fontWeight": "700",
+        "color": "#FFFFFF",
+        "context": "Главные заголовки на темном фоне"
+      },
+      "h2": {
+        "fontSize": "32px",
+        "fontWeight": "700",
+        "color": "#333333",
+        "context": "Заголовки подсекций"
+      },
+      "h3": {
+        "fontSize": "20px",
+        "fontWeight": "700",
+        "color": "#333333",
+        "context": "Заголовки карточек и компонентов"
+      },
+      "bodyText": {
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "color": "#666666",
+        "context": "Основной текст"
+      },
+      "bodyTextBold": {
+        "fontSize": "16px",
+        "fontWeight": "700",
+        "color": "#333333",
+        "context": "Выделенный текст"
+      },
+      "smallText": {
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "#666666",
+        "context": "Мелкий текст и метаданные"
+      },
+      "buttonText": {
+        "fontSize": "16px",
+        "fontWeight": "600",
+        "color": "#FFFFFF",
+        "context": "Текст кнопок"
+      },
+      "linkText": {
+        "fontSize": "14px",
+        "fontWeight": "400",
+        "color": "#3498DB",
+        "textDecoration": "none",
+        "context": "Ссылки"
+      }
+    },
+    "components": {
+      "card": {
+        "container": {
+          "backgroundColor": "#FFFFFF",
+          "borderRadius": "8px",
+          "boxShadow": "0px 2px 8px rgba(0, 0, 0, 0.08)",
+          "padding": "24px",
+          "marginBottom": "20px",
+          "transition": "all 0.3s ease-in-out",
+          "context": "Основной контейнер карточки"
+        },
+        "hover": {
+          "boxShadow": "0px 4px 12px rgba(0, 0, 0, 0.12)",
+          "transform": "translateY(-2px)",
+          "context": "Состояние при наведении"
+        },
+        "image": {
+          "borderTopLeftRadius": "8px",
+          "borderTopRightRadius": "8px",
+          "width": "100%",
+          "height": "auto",
+          "marginBottom": "16px",
+          "context": "Изображения в карточках"
+        },
+        "title": {
+          "typography": "h3",
+          "marginBottom": "8px",
+          "context": "Заголовок карточки"
+        },
+        "description": {
+          "typography": "bodyText",
+          "marginBottom": "12px",
+          "context": "Описание в карточке"
+        },
+        "metadata": {
+          "typography": "smallText",
+          "context": "Дата и дополнительная информация"
+        }
+      },
+      "serviceCard": {
+        "container": {
+          "backgroundColor": "#FFFFFF",
+          "borderRadius": "8px",
+          "boxShadow": "0px 4px 8px rgba(0, 0, 0, 0.05)",
+          "padding": "20px",
+          "position": "relative",
+          "overflow": "hidden",
+          "transition": "all 0.3s ease-in-out",
+          "context": "Карточка услуг с интерактивным элементом"
+        },
+        "hover": {
+          "boxShadow": "0px 6px 12px rgba(0, 0, 0, 0.1)",
+          "transform": "translateY(-2px)",
+          "context": "Состояние при наведении"
+        },
+        "iconButton": {
+          "width": "40px",
+          "height": "40px",
+          "borderRadius": "50%",
+          "background": "linear-gradient(to right, #00C6FF, #0072FF)",
+          "position": "absolute",
+          "bottom": "-20px",
+          "right": "20px",
+          "boxShadow": "0px 2px 4px rgba(0, 0, 0, 0.1)",
+          "cursor": "pointer",
+          "transition": "all 0.3s ease-in-out",
+          "context": "Интерактивная иконка-кнопка"
+        },
+        "iconButtonHover": {
+          "transform": "scale(1.1)",
+          "boxShadow": "0px 4px 8px rgba(0, 0, 0, 0.2)",
+          "context": "Состояние иконки при наведении"
+        }
+      },
+      "featureCard": {
+        "container": {
+          "backgroundColor": "#FFFFFF",
+          "borderRadius": "10px",
+          "boxShadow": "0px 2px 8px rgba(0, 0, 0, 0.1)",
+          "padding": "24px",
+          "position": "relative",
+          "context": "Карточка с функциями"
+        },
+        "number": {
+          "fontSize": "48px",
+          "fontWeight": "700",
+          "color": "#E0E0E0",
+          "position": "absolute",
+          "top": "10px",
+          "right": "20px",
+          "context": "Большой номер функции"
+        },
+        "iconContainer": {
+          "width": "40px",
+          "height": "40px",
+          "borderRadius": "50%",
+          "backgroundColor": "#E3F2FD",
+          "display": "flex",
+          "alignItems": "center",
+          "justifyContent": "center",
+          "marginBottom": "15px",
+          "context": "Контейнер иконки"
+        },
+        "icon": {
+          "color": "#3498DB",
+          "size": "24px",
+          "context": "Иконка в контейнере"
+        }
+      },
+      "button": {
+        "primary": {
+          "backgroundColor": "linear-gradient(to bottom, #3498DB, #2980B9)",
+          "color": "#FFFFFF",
+          "border": "none",
+          "borderRadius": "6px",
+          "padding": "12px 24px",
+          "fontSize": "16px",
+          "fontWeight": "600",
+          "cursor": "pointer",
+          "boxShadow": "0px 2px 5px rgba(0, 0, 0, 0.2)",
+          "transition": "all 0.2s ease-in-out",
+          "context": "Основная кнопка"
+        },
+        "primaryHover": {
+          "background": "linear-gradient(to bottom, #2980B9, #1f5f8b)",
+          "boxShadow": "0px 4px 8px rgba(0, 0, 0, 0.3)",
+          "context": "Состояние основной кнопки при наведении"
+        },
+        "secondary": {
+          "backgroundColor": "#FFFFFF",
+          "color": "#333333",
+          "border": "1px solid #DDDDDD",
+          "borderRadius": "4px",
+          "padding": "8px 16px",
+          "fontSize": "16px",
+          "fontWeight": "400",
+          "cursor": "pointer",
+          "transition": "all 0.2s ease-in-out",
+          "context": "Вторичная кнопка"
+        },
+        "secondaryHover": {
+          "backgroundColor": "#F0F0F0",
+          "context": "Состояние вторичной кнопки при наведении"
+        },
+        "active": {
+          "backgroundColor": "#3498DB",
+          "color": "#FFFFFF",
+          "border": "1px solid #3498DB",
+          "context": "Активное состояние кнопки"
+        }
+      },
+      "navigation": {
+        "arrow": {
+          "width": "36px",
+          "height": "36px",
+          "borderRadius": "50%",
+          "backgroundColor": "#FFFFFF",
+          "border": "1px solid #3498DB",
+          "display": "flex",
+          "alignItems": "center",
+          "justifyContent": "center",
+          "cursor": "pointer",
+          "transition": "all 0.2s ease-in-out",
+          "context": "Навигационная стрелка"
+        },
+        "arrowHover": {
+          "backgroundColor": "#3498DB",
+          "color": "#FFFFFF",
+          "context": "Состояние стрелки при наведении"
+        },
+        "dot": {
+          "width": "8px",
+          "height": "8px",
+          "borderRadius": "50%",
+          "backgroundColor": "#ADB5BD",
+          "margin": "0 4px",
+          "cursor": "pointer",
+          "context": "Точка навигации"
+        },
+        "dotActive": {
+          "backgroundColor": "#3498DB",
+          "context": "Активная точка навигации"
+        }
+      },
+      "input": {
+        "field": {
+          "backgroundColor": "#FFFFFF",
+          "border": "1px solid #CCCCCC",
+          "borderRadius": "4px",
+          "padding": "10px 15px",
+          "fontSize": "16px",
+          "color": "#333333",
+          "width": "100%",
+          "transition": "all 0.2s ease-in-out",
+          "context": "Поле ввода"
+        },
+        "fieldFocus": {
+          "borderColor": "#3498DB",
+          "boxShadow": "0 0 0 2px rgba(52, 152, 219, 0.2)",
+          "context": "Состояние фокуса поля"
+        },
+        "placeholder": {
+          "color": "#999999",
+          "context": "Текст-заполнитель"
+        }
+      },
+      "scrollButton": {
+        "container": {
+          "width": "50px",
+          "height": "50px",
+          "borderRadius": "50%",
+          "backgroundColor": "#3498DB",
+          "position": "fixed",
+          "bottom": "20px",
+          "right": "20px",
+          "display": "flex",
+          "alignItems": "center",
+          "justifyContent": "center",
+          "cursor": "pointer",
+          "boxShadow": "0px 4px 8px rgba(0, 0, 0, 0.2)",
+          "transition": "all 0.2s ease-in-out",
+          "context": "Кнопка прокрутки вверх"
+        },
+        "hover": {
+          "backgroundColor": "#2980B9",
+          "boxShadow": "0px 6px 12px rgba(0, 0, 0, 0.3)",
+          "context": "Состояние при наведении"
+        },
+        "icon": {
+          "color": "#FFFFFF",
+          "size": "24px",
+          "context": "Иконка стрелки вверх"
+        }
+      },
+      "footer": {
+        "container": {
+          "background": "linear-gradient(to bottom, #2A72B8, #205A90)",
+          "padding": "30px 0",
+          "color": "#FFFFFF",
+          "context": "Подвал страницы"
+        },
+        "link": {
+          "color": "#FFFFFF",
+          "textDecoration": "none",
+          "fontSize": "14px",
+          "marginRight": "20px",
+          "transition": "all 0.2s ease-in-out",
+          "context": "Ссылка в подвале"
+        },
+        "linkHover": {
+          "textDecoration": "underline",
+          "color": "rgba(255, 255, 255, 0.8)",
+          "context": "Состояние ссылки при наведении"
+        }
+      }
+    },
+    "visualEffects": {
+      "shadows": {
+        "subtle": "0px 2px 8px rgba(0, 0, 0, 0.05)",
+        "card": "0px 2px 8px rgba(0, 0, 0, 0.08)",
+        "button": "0px 2px 5px rgba(0, 0, 0, 0.2)",
+        "medium": "0px 4px 8px rgba(0, 0, 0, 0.1)",
+        "strong": "0px 6px 12px rgba(0, 0, 0, 0.15)",
+        "laptop": "0px 10px 20px rgba(0, 0, 0, 0.15)",
+        "description": "Спецификации теней для разных элементов"
+      },
+      "gradients": {
+        "primary": "linear-gradient(to bottom, #3498DB, #2980B9)",
+        "accent": "linear-gradient(to right, #00C6FF, #0072FF)",
+        "footer": "linear-gradient(to bottom, #2A72B8, #205A90)",
+        "description": "Градиенты для кнопок и фонов"
+      },
+      "borderRadius": {
+        "small": "4px",
+        "medium": "8px",
+        "large": "10px",
+        "circular": "50%",
+        "description": "Радиусы скругления для разных элементов"
+      },
+      "transitions": {
+        "default": "all 0.2s ease-in-out",
+        "smooth": "all 0.3s ease-in-out",
+        "description": "Временные параметры анимаций"
+      }
+    },
+    "spacing": {
+      "xs": "4px",
+      "sm": "8px",
+      "md": "16px",
+      "lg": "24px",
+      "xl": "32px",
+      "xxl": "50px",
+      "description": "Система отступов"
+    },
+    "doNotRules": [
+      "НЕ применяй градиенты к текстовым элементам или неинтерактивным компонентам",
+      "НЕ применяй тени карточек к отдельным текстовым элементам или изображениям внутри карточек",
+      "НЕ используй цвет фона карточек (#F8F9FA) для основного фона страницы",
+      "НЕ применяй цвета кнопок (#3498DB) к текстовым элементам",
+      "НЕ используй белый текст (#FFFFFF) на белом фоне",
+      "НЕ применяй круговой border-radius к прямоугольным контейнерам",
+      "НЕ используй акцентный голубой (#00C6FF) для основного текста или заголовков",
+      "НЕ применяй тени кнопок к карточкам или текстовым блокам",
+      "НЕ используй цвета подвала (градиент синий) для других элементов",
+      "НЕ применяй специальные цвета (#FF0000, #FFD700) для общих UI элементов"
+    ],
+    "contextualRules": [
+      "Карточки используют белый фон (#FFFFFF) с тенью, а не градиент",
+      "Основные кнопки используют градиент, вторичные - сплошной цвет",
+      "Навигационные стрелки имеют белый фон с синей границей",
+      "Иконки в карточках используют светло-голубой фон (#E3F2FD)",
+      "Текст в подвале всегда белый (#FFFFFF) на синем градиенте",
+      "Поля ввода имеют белый фон с серой границей",
+      "Кнопка прокрутки вверх использует сплошной синий цвет"
+    ]
+  }
+}

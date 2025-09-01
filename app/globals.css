@@ -1,0 +1,249 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Глобальные CSS переменные из дизайн-системы */
+:root {
+  /* Цвета бренда */
+  --brand-blue: #3498DB;
+  --brand-blue-hover: #2980B9;
+  --brand-blue-dark: #2A72B8;
+  --brand-blue-darker: #205A90;
+
+  /* Акцентные цвета */
+  --accent-cyan: #00C6FF;
+  --accent-cyan-end: #0072FF;
+
+  /* Текстовые цвета */
+  --text-heading: #333333;
+  --text-heading-primary: #2C3E50;
+  --text-body: #666666;
+  --text-inverted: #FFFFFF;
+
+  /* Фоновые цвета */
+  --bg-card: #F8F9FA;
+  --bg-light-blue: #E3F2FD;
+
+  /* Градиенты */
+  --gradient-primary: linear-gradient(to bottom, #3498DB, #2980B9);
+  --gradient-accent: linear-gradient(to right, #00C6FF, #0072FF);
+  --gradient-footer: linear-gradient(to bottom, #2A72B8, #205A90);
+}
+
+/* Базовые стили для HTML */
+html {
+  scroll-behavior: smooth;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #FFFFFF;
+  color: var(--text-body);
+  line-height: 1.5;
+}
+
+/* Кастомные утилиты для градиентов */
+@layer utilities {
+  .bg-gradient-primary {
+    background: linear-gradient(to bottom, #3498DB, #2980B9);
+  }
+
+  .bg-gradient-primary-hover {
+    background: linear-gradient(to bottom, #2980B9, #1f5f8b);
+  }
+
+  .bg-gradient-accent {
+    background: linear-gradient(to right, #00C6FF, #0072FF);
+  }
+
+  .bg-gradient-footer {
+    background: linear-gradient(to bottom, #2A72B8, #205A90);
+  }
+
+  /* Контейнер */
+  .max-w-container {
+    max-width: 1200px;
+  }
+
+  /* Анимации для hover эффектов */
+  .hover-lift {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-2px);
+  }
+
+  .hover-scale {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .hover-scale:hover {
+    transform: scale(1.1);
+  }
+
+  /* Анимации для Hero секции */
+  .animate-fade-in-left {
+    animation: fadeInLeft 1s ease-out forwards;
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+
+  .animate-fade-in-right {
+    animation: fadeInRight 1s ease-out forwards;
+    opacity: 0;
+    transform: translateX(50px);
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 1s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  @keyframes fadeInLeft {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeInRight {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Анимация для модального окна */
+  .animate-modal-in {
+    animation: modalIn 0.3s ease-out forwards;
+  }
+
+  @keyframes modalIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9) translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  /* Кастомные анимации для хедера */
+  .animate-gradient-text {
+    background: linear-gradient(90deg, #1976D2, #3F51B5, #9C27B0);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 3s ease-in-out infinite;
+  }
+
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Плавный underline эффект */
+  .nav-underline {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nav-underline::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #1976D2, #3F51B5);
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+
+  .nav-underline:hover::after {
+    transform: translateX(0);
+  }
+
+  /* Эффект пульсации для иконок */
+  .pulse-on-hover:hover {
+    animation: pulseGlow 0.6s ease-in-out;
+  }
+
+  @keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 rgba(25, 118, 210, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(25, 118, 210, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(25, 118, 210, 0); }
+  }
+
+  /* Backdrop blur для Safari */
+  .backdrop-blur-safari {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}
+
+/* Кастомные компоненты */
+@layer components {
+  /* Основная кнопка */
+  .btn-primary {
+    @apply bg-gradient-primary text-white border-0 rounded-md px-6 py-3 text-button font-semibold cursor-pointer shadow-button transition-all duration-default;
+  }
+
+  .btn-primary:hover {
+    @apply bg-gradient-primary-hover shadow-button-hover;
+  }
+
+  /* Вторичная кнопка */
+  .btn-secondary {
+    @apply bg-white text-text-heading border border-neutral-medium rounded px-4 py-2 text-body cursor-pointer transition-all duration-default;
+  }
+
+  .btn-secondary:hover {
+    @apply bg-neutral-light;
+  }
+
+  /* Карточка */
+  .card {
+    @apply bg-white rounded-medium shadow-card p-lg mb-5 transition-all duration-smooth hover-lift;
+  }
+
+  .card:hover {
+    @apply shadow-card-hover;
+  }
+
+  /* Карточка услуг */
+  .service-card {
+    @apply bg-white rounded-medium shadow-service-card p-5 relative overflow-hidden transition-all duration-smooth hover-lift;
+  }
+
+  .service-card:hover {
+    @apply shadow-service-card-hover;
+  }
+
+  /* Поле ввода */
+  .input-field {
+    @apply bg-white border border-neutral-dark rounded px-4 py-3 text-body w-full transition-all duration-default;
+  }
+
+  .input-field:focus {
+    @apply border-brand-blue outline-none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  }
+
+  .input-field::placeholder {
+    @apply text-text-placeholder;
+  }
+}
