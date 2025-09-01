@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
@@ -29,6 +29,8 @@ const Card: React.FC<CardProps> = ({
   onClick,
   className = ''
 }) => {
+  const [imageError, setImageError] = useState(false);
+
   // Базовые стили из дизайн-системы
   const baseClasses = 'bg-white transition-all duration-300 cursor-pointer';
 
@@ -70,6 +72,35 @@ const Card: React.FC<CardProps> = ({
             height={200}
             className="w-full h-auto rounded-xl"
           />
+        </div>
+      )}
+
+      {/* Изображение для сервисных карточек */}
+      {image && variant === 'service' && (
+        <div className="mb-4 relative">
+          {!imageError ? (
+            <div className="w-full h-48 rounded-xl overflow-hidden">
+              <Image
+                src={image}
+                alt={title}
+                width={400}
+                height={300}
+                className="w-full h-full object-cover"
+                onError={() => setImageError(true)}
+              />
+            </div>
+          ) : (
+            <div className="w-full h-48 bg-gradient-to-br from-gray-200 to-gray-300 rounded-xl flex items-center justify-center">
+              <div className="text-center text-gray-500">
+                <div className="text-4xl mb-2">📷</div>
+                <div className="text-sm font-medium">Фото: {title}</div>
+                <div className="text-xs mt-1 text-gray-400">Изображение не найдено</div>
+                <div className="text-xs mt-2 bg-gray-100 px-2 py-1 rounded font-mono">
+                  {image}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
 
