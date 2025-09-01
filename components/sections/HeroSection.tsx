@@ -97,7 +97,7 @@ const HeroSection: React.FC = () => {
         {/* Нижняя часть с тремя карточками */}
         <div className="relative z-10 pb-20">
           <div className="max-w-6xl mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 -mt-16">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
               {/* Карточка 1 - Material Design */}
               <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 backdrop-blur-sm">
                 <div className="space-y-4">

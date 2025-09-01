@@ -10,16 +10,16 @@ const PartnersSection: React.FC = () => {
   const partners = [
     { name: "Элинар", logo: "https://elinar.ru/wp-content/uploads/2017/10/logo-en.png" },
     { name: "НарПромСервис", logo: "/logos/narprom-logo.jpg" },
-    { name: "Горхимпром", logo: "/logos/partner-3.jpg" },
-    { name: "Елагин", logo: "/logos/partner-4.jpg" },
-    { name: "Партнер 5", logo: "/logos/partner-5.jpg" },
-    { name: "ПК", logo: "/logos/partner-6.jpg" },
-    { name: "ЭКО", logo: "/logos/partner-7.jpg" },
+    { name: "Горхимпром", logo: "/logos/narprom-logo.jpg" },
+    { name: "Елагин", logo: "/logos/elinar-logo.jpg" },
+    { name: "Партнер 5", logo: "/logos/narprom-logo.jpg" },
+    { name: "ПК", logo: "/logos/elinar-logo.jpg" },
+    { name: "ЭКО", logo: "/logos/narprom-logo.jpg" },
     { name: "Элинар", logo: "https://elinar.ru/wp-content/uploads/2017/10/logo-en.png" },
     { name: "НарПромСервис", logo: "/logos/narprom-logo.jpg" },
-    { name: "Горхимпром", logo: "/logos/partner-3.jpg" },
-    { name: "Елагин", logo: "/logos/partner-4.jpg" },
-    { name: "Партнер 5", logo: "/logos/partner-5.jpg" }
+    { name: "Горхимпром", logo: "/logos/narprom-logo.jpg" },
+    { name: "Елагин", logo: "/logos/elinar-logo.jpg" },
+    { name: "Партнер 5", logo: "/logos/narprom-logo.jpg" }
   ];
 
   return (
