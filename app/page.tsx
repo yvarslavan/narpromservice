@@ -6,6 +6,7 @@ import CompanyGroupSection from '../components/sections/CompanyGroupSection';
 import ProjectsSection from '../components/sections/ProjectsSection';
 import ServicesSection from '../components/sections/ServicesSection';
 import AboutSection from '../components/sections/AboutSection';
+import PartnersSection from '../components/sections/PartnersSection';
 import ReliablePartnerSection from '../components/sections/ReliablePartnerSection';
 import ContactsSection from '../components/sections/ContactsSection';
 
@@ -20,6 +21,9 @@ export default function HomePage() {
 
       {/* О компании с изображением и статистикой */}
       <AboutSection />
+
+      {/* Наши партнёры */}
+      <PartnersSection />
 
       {/* Группа компаний */}
       <CompanyGroupSection />

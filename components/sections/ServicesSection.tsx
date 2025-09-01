@@ -1,6 +1,9 @@
+'use client';
+
 import React from 'react';
 import Card from '../ui/Card';
 import { Zap, Building2, Wrench, Hammer, Flame, Settings } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const ServicesSection: React.FC = () => {
   const services = [
@@ -61,28 +64,43 @@ const ServicesSection: React.FC = () => {
   ];
 
   return (
-    <section id="services" className="py-20 bg-white">
-      <div className="max-w-container mx-auto px-4">
+    <section id="services" className="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50">
+      <div className="max-w-7xl mx-auto px-4">
         {/* Заголовок секции */}
-        <div className="text-center mb-16">
-          <h2 className="text-h1 font-bold text-text-heading uppercase tracking-wider">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 uppercase tracking-wider mb-4">
             Направления<br />
             деятельности и услуги
           </h2>
-        </div>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-indigo-600 mx-auto rounded-full"></div>
+        </motion.div>
 
         {/* Сетка услуг */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <Card
+            <motion.div
               key={index}
-              title={service.title}
-              description=""
-              variant="service"
-              icon={service.icon}
-              iconButton={service.iconButton}
-              className="h-48 flex flex-col justify-between"
-            />
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.1
+              }}
+            >
+              <Card
+                title={service.title}
+                description=""
+                variant="service"
+                icon={service.icon}
+                iconButton={service.iconButton}
+                className="h-64 flex flex-col justify-between pb-16"
+              />
+            </motion.div>
           ))}
         </div>
       </div>

@@ -70,12 +70,13 @@ const ProjectsSection: React.FC = () => {
           {/* Правая часть - изображение */}
           <div className="flex justify-center">
             <div className="relative">
-              {/* Заглушка для изображения проекта */}
-              <div className="w-full max-w-md h-80 bg-bg-card rounded-large shadow-laptop flex items-center justify-center">
-                <div className="text-center text-text-body opacity-60">
-                  <div className="w-20 h-20 bg-neutral-medium rounded-medium mx-auto mb-4"></div>
-                  <p className="text-sm">Изображение проекта</p>
-                </div>
+              {/* Изображение проекта */}
+              <div className="w-full max-w-md h-80 bg-white rounded-2xl shadow-2xl overflow-hidden">
+                <img
+                  src="/images/project-main.jpg"
+                  alt="Монтаж оборудования ОПО"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
               </div>
             </div>
           </div>

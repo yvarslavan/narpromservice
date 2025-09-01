@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import Image from 'next/image';
 import { X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -79,20 +78,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
             {/* Декоративный градиент сверху */}
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"></div>
 
-            {/* Header with logo and close button */}
-            <div className="flex items-center justify-between p-6 border-b border-gray-100/50">
-              <div className="flex items-center gap-3">
-                <Image
-                  src="/logos/narprom-logo.jpg"
-                  alt="НарПромСервис"
-                  width={40}
-                  height={40}
-                  className="rounded-lg shadow-sm"
-                />
-                {title && (
-                  <h2 className="text-xl font-bold text-gray-900">{title}</h2>
-                )}
-              </div>
+            {/* Header with close button */}
+            <div className="flex items-center justify-end p-4 border-b border-gray-100/50">
               <motion.button
                 onClick={onClose}
                 className="p-2 hover:bg-gray-100/50 rounded-full transition-all duration-200 group"
