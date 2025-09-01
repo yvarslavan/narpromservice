@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
 import Button from '../ui/Button';
 import Modal from '../ui/Modal';
 import ContactForm from '../forms/ContactForm';
@@ -8,56 +10,60 @@ import { Briefcase, Settings, Headphones } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleFormSubmit = (data: { name: string; phone: string }) => {
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
+  const handleFormSubmit = (data: any) => {
     console.log('Form submitted:', data);
-    // Здесь можно добавить логику отправки данных
-    setIsModalOpen(false);
+    handleCloseModal();
   };
 
   return (
-    <section className="relative min-h-screen overflow-hidden -mt-20 pt-20">
-      {/* Material Design градиентный фон */}
-      <div className="absolute inset-0 z-0">
-        <div className="w-full h-full bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600"></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-transparent to-black/20"></div>
-        {/* Геометрические элементы */}
-        <div className="absolute top-20 right-20 w-32 h-32 bg-white/5 rounded-full backdrop-blur-sm animate-pulse"></div>
-        <div className="absolute bottom-32 left-16 w-24 h-24 bg-white/10 rounded-2xl backdrop-blur-sm"></div>
+    <section className="relative min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 overflow-hidden -mt-20 pt-20">
+      {/* Фоновые декоративные элементы */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-indigo-500/5 rounded-full blur-3xl"></div>
       </div>
 
       {/* Основной контент */}
-      <div className="relative z-10 min-h-screen flex flex-col">
-        {/* Верхняя часть с рабочим и текстом */}
+      <div className="relative z-10">
         <div className="flex-1 flex items-center py-20">
           <div className="max-w-6xl mx-auto px-4 w-full">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                            {/* Левая часть - современная иллюстрация */}
+              {/* Левая часть - место для картинки */}
               <div className="flex justify-center lg:justify-start">
                 <div className="relative">
                   <div className="w-80 h-96 relative">
-                    {/* Современная геометрическая композиция */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-indigo-500/30 to-purple-600/20 rounded-3xl backdrop-blur-sm"></div>
-
-                    {/* Центральная иконка промышленности */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-32 h-32 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-md border border-white/20">
-                        <Settings className="w-16 h-16 text-white" />
+                    {!imageError ? (
+                      <div className="w-full h-full rounded-3xl overflow-hidden">
+                        <Image
+                          src="/images/hero-industrial.jpg"
+                          alt="Промышленное оборудование"
+                          width={320}
+                          height={384}
+                          className="w-full h-full object-cover"
+                          onError={() => setImageError(true)}
+                        />
                       </div>
-                    </div>
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-blue-500/20 via-indigo-500/30 to-purple-600/20 rounded-3xl backdrop-blur-sm border-2 border-white/20 flex items-center justify-center">
+                        <div className="text-center text-white">
+                          <div className="text-6xl mb-4">🏭</div>
+                          <div className="text-lg font-semibold mb-2">Промышленное оборудование</div>
+                          <div className="text-sm opacity-80">Разместите изображение по пути:</div>
+                          <div className="text-xs font-mono bg-white/10 px-3 py-2 rounded-lg mt-2">
+                            /images/hero-industrial.jpg
+                          </div>
+                        </div>
+                      </div>
+                    )}
 
-                    {/* Material Design floating elements */}
-                    <div className="absolute top-8 right-8 w-20 h-20 bg-blue-500/30 rounded-2xl backdrop-blur-sm animate-pulse"></div>
-                    <div className="absolute bottom-8 left-8 w-16 h-16 bg-indigo-500/40 rounded-xl backdrop-blur-sm animate-bounce"></div>
-                    <div className="absolute top-1/3 left-4 w-12 h-12 bg-purple-500/25 rounded-full backdrop-blur-sm"></div>
+                    {/* Декоративные элементы поверх картинки */}
+                    <div className="absolute top-4 right-4 w-16 h-16 bg-blue-500/30 rounded-2xl backdrop-blur-sm animate-pulse"></div>
+                    <div className="absolute bottom-4 left-4 w-12 h-12 bg-indigo-500/40 rounded-xl backdrop-blur-sm animate-bounce"></div>
                   </div>
                 </div>
               </div>

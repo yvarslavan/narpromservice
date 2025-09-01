@@ -99,7 +99,15 @@ module.exports = {
         'md': '16px',
         'lg': '24px',
         'xl': '32px',
-        'xxl': '50px',
+        '2xl': '48px',
+        '3xl': '64px',
+        '4xl': '96px',
+        '5xl': '128px',
+      },
+
+      // Максимальная ширина контейнера
+      maxWidth: {
+        'container': '1200px',
       },
 
       // Анимации
@@ -107,11 +115,6 @@ module.exports = {
         'default': '200ms',
         'smooth': '300ms',
       },
-
-      // Размеры контейнеров
-      maxWidth: {
-        'container': '1200px',
-      }
     },
   },
   plugins: [],
