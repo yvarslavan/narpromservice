@@ -1,17 +1,23 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Factory, Cog, Shield, Award, Users, TrendingUp } from 'lucide-react';
+import { ArrowRight, Factory, Cog, Shield, Award, Users, TrendingUp, Maximize2 } from 'lucide-react';
+import ImageModal from '../ui/ImageModal';
 
 const AboutSection: React.FC = () => {
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+
   const handleNewsClick = () => {
-    // Прокрутка к секции новостей
     const newsSection = document.getElementById('news');
     if (newsSection) {
       newsSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+    const handleImageClick = useCallback(() => {
+    setIsImageModalOpen(true);
+  }, []); // Убираем зависимость!
 
   const features = [
     { icon: Factory, text: "Полный цикл производства" },
@@ -24,7 +30,6 @@ const AboutSection: React.FC = () => {
 
   return (
     <section id="about" className="py-24 bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden">
-      {/* Геометрические фоновые элементы */}
       <div className="absolute top-20 right-10 w-72 h-72 bg-blue-200/20 rounded-full blur-3xl"></div>
       <div className="absolute bottom-20 left-10 w-96 h-96 bg-purple-200/15 rounded-full blur-3xl"></div>
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-blue-100/10 to-purple-100/10 rounded-full blur-3xl"></div>
@@ -39,7 +44,6 @@ const AboutSection: React.FC = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            {/* Заголовок */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -52,7 +56,6 @@ const AboutSection: React.FC = () => {
               <div className="mt-4 w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
             </motion.div>
 
-            {/* Основной текст */}
             <motion.div
               className="space-y-6 text-gray-700 leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
@@ -61,19 +64,13 @@ const AboutSection: React.FC = () => {
               viewport={{ once: true }}
             >
               <p className="text-lg">
-                Наша компания предоставляет <span className="font-semibold text-blue-600">полный спектр услуг</span> — от проектирования и производства до монтажа оборудования и металлоконструкций. Мы разрабатываем и внедряем графики планово-предупредительного обслуживания (ППО) и планово-предупредительных ремонтов (ППР), обеспечивая бесперебойную и надёжную работу ваших объектов.
+                Наша компания предоставляет <span className="font-semibold text-blue-600">полный спектр услуг</span> — от проектирования и производства до монтажа оборудования и металлоконструкций.
               </p>
-
               <p className="text-lg">
-                Мы выполняем <span className="font-semibold text-purple-600">модернизацию и реконструкцию</span> производственных участков, а также оказываем услуги токарной и фрезерной обработки деталей по чертежам и эскизам заказчиков. <span className="font-semibold text-indigo-600">Качество исполнения</span> — наш главный приоритет, а опытные специалисты гарантируют высокие стандарты на каждом этапе работ, включая все виды сварочных операций.
-              </p>
-
-              <p className="text-lg">
-                Кроме серийного производства, мы создаём <span className="font-semibold text-blue-600">индивидуальные решения</span>, адаптированные под конкретные задачи клиентов. <span className="font-bold text-purple-600">Ваш проект — наша ответственность и главный приоритет!</span>
+                Мы выполняем <span className="font-semibold text-purple-600">модернизацию и реконструкцию</span> производственных участков, а также оказываем услуги токарной и фрезерной обработки деталей.
               </p>
             </motion.div>
 
-            {/* Особенности компании */}
             <motion.div
               className="grid grid-cols-2 gap-4"
               initial={{ opacity: 0, y: 30 }}
@@ -100,7 +97,6 @@ const AboutSection: React.FC = () => {
               ))}
             </motion.div>
 
-            {/* CTA кнопка */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -117,17 +113,6 @@ const AboutSection: React.FC = () => {
                 }}
                 whileTap={{ scale: 0.98 }}
               >
-                {/* Shimmer эффект */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                  initial={{ x: '-100%' }}
-                  whileHover={{ x: '100%' }}
-                  transition={{ duration: 0.8, ease: "easeInOut" }}
-                />
-
-                {/* Фоновое свечение */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-indigo-400/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300" />
-
                 <div className="relative z-10 flex items-center gap-3">
                   <span>Новости компании</span>
                   <motion.div
@@ -152,42 +137,54 @@ const AboutSection: React.FC = () => {
             <div className="relative">
               {/* Основное изображение */}
               <motion.div
-                className="relative z-10 bg-white p-8 rounded-3xl shadow-2xl"
-                whileHover={{ y: -10 }}
-                transition={{ duration: 0.3 }}
+                className="relative z-10 bg-white p-6 rounded-3xl shadow-2xl cursor-pointer group"
+                whileHover={{
+                  y: -15,
+                  scale: 1.02,
+                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
+                }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                onClick={handleImageClick}
               >
-                <img
-                  src="/images/project-1.jpg"
-                  alt="Производственные мощности"
-                  className="w-full h-80 object-cover rounded-2xl"
-                />
+                <div className="relative overflow-hidden rounded-2xl">
+                                     <img
+                     src="/images/hero-industrial.jpg"
+                     alt="Промышленные мощности компании"
+                     className="w-full h-[600px] object-cover rounded-2xl transition-transform duration-700 group-hover:scale-110"
+                   />
 
-                {/* Градиентный overlay */}
-                <div className="absolute inset-8 bg-gradient-to-t from-black/40 via-transparent to-transparent rounded-2xl"></div>
+                  {/* Градиентный overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent rounded-2xl"></div>
 
-                {/* Текст поверх изображения */}
-                <div className="absolute bottom-12 left-12 text-white">
-                  <h3 className="text-2xl font-bold mb-2">Современное производство</h3>
-                  <p className="text-sm opacity-90">Высокотехнологичное оборудование</p>
+                  {/* Кнопка увеличения */}
+                  <div className="absolute top-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
+                    <Maximize2 size={24} />
+                  </div>
+
+                  {/* Текст поверх изображения */}
+                  <div className="absolute bottom-6 left-6 text-white">
+                    <h3 className="text-2xl font-bold mb-2">Современное производство</h3>
+                    <p className="text-sm opacity-90">Высокотехнологичное оборудование</p>
+                  </div>
                 </div>
               </motion.div>
 
               {/* Декоративные элементы */}
               <motion.div
-                className="absolute -top-6 -right-6 w-32 h-32 bg-gradient-to-br from-blue-400/30 to-purple-500/30 rounded-3xl backdrop-blur-sm"
+                className="absolute -top-10 -right-10 w-48 h-48 bg-gradient-to-br from-blue-400/30 to-purple-500/30 rounded-3xl backdrop-blur-sm"
                 animate={{ rotate: [0, 360] }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               />
 
               <motion.div
-                className="absolute -bottom-8 -left-8 w-24 h-24 bg-gradient-to-br from-indigo-400/40 to-cyan-500/40 rounded-2xl backdrop-blur-sm"
+                className="absolute -bottom-12 -left-12 w-40 h-40 bg-gradient-to-br from-indigo-400/40 to-cyan-500/40 rounded-2xl backdrop-blur-sm"
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               />
 
               {/* Статистика в карточках */}
               <motion.div
-                className="absolute top-8 right-8 bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-lg"
+                className="absolute top-6 right-6 bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-lg"
                 initial={{ scale: 0, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.8 }}
@@ -200,7 +197,7 @@ const AboutSection: React.FC = () => {
               </motion.div>
 
               <motion.div
-                className="absolute bottom-16 right-16 bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-lg"
+                className="absolute bottom-8 right-8 bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-lg"
                 initial={{ scale: 0, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 1 }}
@@ -215,6 +212,16 @@ const AboutSection: React.FC = () => {
           </motion.div>
         </div>
       </div>
+
+      {/* Модальное окно для просмотра изображения */}
+             <ImageModal
+         isOpen={isImageModalOpen}
+         onClose={() => setIsImageModalOpen(false)}
+         imageSrc="/images/hero-industrial.jpg"
+         imageAlt="Промышленные мощности компании"
+         title="Промышленные мощности"
+         description="Современное производственное оборудование и промышленные мощности нашей компании"
+       />
     </section>
   );
 };
