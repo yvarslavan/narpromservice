@@ -42,6 +42,25 @@ const ProjectsSection: React.FC = () => {
         }
       ],
       image: '/images/project-main.jpg'
+    },
+    {
+      title: 'Установка, пуск и наладка оборудования Биогран',
+      description: 'Комплексная установка и настройка специализированного оборудования для переработки органических отходов.',
+      features: [
+        {
+          text: 'Наши специалисты оказали **комплексную услугу** установки, запуска и настройки специализированного оборудования для переработки органических отходов методом биоферментации.',
+          accent: 'комплексную услугу'
+        },
+        {
+          text: 'Мы провели монтаж оборудования согласно проекту, подключили необходимые коммуникации, выполнили тестирование всех компонентов и запустили систему в эксплуатацию.',
+          accent: ''
+        },
+        {
+          text: 'В процессе наладки были **оптимизированы** параметры работы установки для достижения **максимальной эффективности** переработки сырья.',
+          accent: ['оптимизированы', 'максимальной эффективности']
+        }
+      ],
+      image: '/images/project-3.jpg'
     }
   ];
 
@@ -63,12 +82,25 @@ const ProjectsSection: React.FC = () => {
     setIsImageModalOpen(true);
   }, []);
 
-    const renderAccentedText = (text: string, accent: string | string[]) => {
+  const renderAccentedText = (text: string, accent: string | string[]) => {
     if (typeof accent === 'string') {
       // Ищем текст в звездочках и заменяем его на акцентный стиль
       const accentPattern = new RegExp(`\\*\\*([^*]+)\\*\\*`, 'g');
       const htmlText = text.replace(accentPattern, (match, capturedText) => {
         return `<span class="font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-lg">${capturedText}</span>`;
+      });
+
+      return (
+        <span dangerouslySetInnerHTML={{ __html: htmlText }} />
+      );
+    } else if (Array.isArray(accent)) {
+      // Если массив акцентов, применяем стиль ко всем
+      let htmlText = text;
+      accent.forEach(accentText => {
+        if (accentText) {
+          const accentPattern = new RegExp(`\\*\\*${accentText}\\*\\*`, 'g');
+          htmlText = htmlText.replace(accentPattern, `<span class="font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-lg">${accentText}</span>`);
+        }
       });
 
       return (

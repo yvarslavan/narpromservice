@@ -50,7 +50,7 @@ const ImageModal: React.FC<ImageModalProps> = ({
 
           {/* Контент модального окна */}
           <motion.div
-            className="relative max-w-[90vw] max-h-[90vh] bg-white rounded-3xl overflow-hidden shadow-2xl"
+            className="relative max-w-[95vw] max-h-[95vh] bg-white rounded-3xl overflow-hidden shadow-2xl"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
@@ -61,7 +61,7 @@ const ImageModal: React.FC<ImageModalProps> = ({
               <img
                 src={imageSrc}
                 alt={imageAlt}
-                className="w-full h-auto max-h-[70vh] object-contain"
+                className="w-full h-auto max-h-[85vh] object-contain"
               />
 
               {/* Информация об изображении */}
