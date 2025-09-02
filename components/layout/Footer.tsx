@@ -57,7 +57,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-white border-opacity-20 mt-8 pt-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-sm text-white opacity-80">
-              © Copyright. Все права защищены 2024
+              © Copyright. Все права защищены 2025
             </div>
             <div className="text-sm flex flex-wrap gap-4">
               <a href="#privacy" className="text-white hover:text-opacity-80 transition-all duration-default hover:underline">

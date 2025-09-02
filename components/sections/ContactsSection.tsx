@@ -1,83 +1,81 @@
+'use client';
+
 import React from 'react';
-import { MapPin, Phone, Mail, Clock } from 'lucide-react';
-import Button from '../ui/Button';
+import { motion } from 'framer-motion';
+import { MapPin } from 'lucide-react';
+import YandexMap from '../ui/YandexMap';
+import ContactInfo from '../ui/ContactInfo';
 
 const ContactsSection: React.FC = () => {
+  const contactData = {
+    address: '143302, Московская область, г. Наро-Фоминск, с. Атепцево, пер. Мичуринский д.1, Атепцево, влад.1',
+    phone: '+7 (495) 509-03-16',
+    email: 'maletskii@elinar.ru',
+    workingHours: 'Пн–Пт с 08:00 до 17:00'
+  };
+
   return (
     <section id="contacts" className="py-20 bg-neutral-light">
       <div className="max-w-container mx-auto px-4">
         {/* Заголовок секции */}
-        <div className="text-center mb-16">
-          <h2 className="text-h1 font-bold text-text-heading uppercase tracking-wider">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 uppercase tracking-wider mb-4">
             Контакты
           </h2>
-        </div>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-indigo-600 mx-auto rounded-full"></div>
+          <p className="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">
+            Свяжитесь с нами любым удобным способом. Мы всегда готовы ответить на ваши вопросы и помочь в решении задач.
+          </p>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Левая часть - карта */}
-          <div className="space-y-6">
-            {/* Заглушка для карты */}
-            <div className="w-full h-80 bg-bg-card rounded-large shadow-card flex items-center justify-center">
-              <div className="text-center text-text-body opacity-60">
-                <MapPin size={48} className="mx-auto mb-4 text-brand-blue" />
-                <p className="text-lg font-semibold">Интерактивная карта</p>
-                <p className="text-sm">Яндекс.Карты или Google Maps</p>
-              </div>
-            </div>
+          {/* Левая часть - интерактивная карта */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <YandexMap
+              address={contactData.address}
+              className="mb-6"
+            />
 
-            {/* Адрес */}
-            <div className="bg-white rounded-medium shadow-card p-6">
-              <h4 className="text-h3 font-bold text-text-heading mb-4">Адрес:</h4>
-              <p className="text-body text-text-body">
-                143302, Московская область, г. Наро-<br />
-                Фоминск, с. Атепцево, пер. Мичуринский д.1<br />
-                Атепцево, влад.1
+            {/* Дополнительная информация о местоположении */}
+            <motion.div
+              className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <h4 className="text-xl font-bold text-gray-800 mb-3 flex items-center gap-3">
+                <MapPin size={24} className="text-blue-600" />
+                Как добраться
+              </h4>
+              <p className="text-gray-600 leading-relaxed">
+                Мы находимся в живописном селе Атепцево, в 15 минутах езды от центра Наро-Фоминска.
+                Удобная транспортная доступность и парковка для посетителей.
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Правая часть - контактная информация */}
-          <div className="space-y-6">
-            {/* Телефон */}
-            <div className="bg-white rounded-medium shadow-card p-6">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-bg-light-blue rounded-medium flex items-center justify-center">
-                  <Phone size={24} className="text-brand-blue" />
-                </div>
-                <h4 className="text-h3 font-bold text-text-heading">Телефон</h4>
-              </div>
-              <p className="text-lg font-bold text-text-heading">+7 (495) 509-03-16</p>
-            </div>
-
-            {/* Email */}
-            <div className="bg-white rounded-medium shadow-card p-6">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-bg-light-blue rounded-medium flex items-center justify-center">
-                  <Mail size={24} className="text-brand-blue" />
-                </div>
-                <h4 className="text-h3 font-bold text-text-heading">Email</h4>
-              </div>
-              <p className="text-lg font-bold text-text-heading">maletskii@elinar.ru</p>
-            </div>
-
-            {/* Режим работы */}
-            <div className="bg-white rounded-medium shadow-card p-6">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-bg-light-blue rounded-medium flex items-center justify-center">
-                  <Clock size={24} className="text-brand-blue" />
-                </div>
-                <h4 className="text-h3 font-bold text-text-heading">Режим работы</h4>
-              </div>
-              <p className="text-lg font-bold text-text-heading">Пн-Пт с 08:00 до 17:00</p>
-            </div>
-
-            {/* Кнопка связи */}
-            <div className="pt-4">
-              <Button variant="primary" className="w-full">
-                Связаться с нами
-              </Button>
-            </div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <ContactInfo
+              address={contactData.address}
+              phone={contactData.phone}
+              email={contactData.email}
+              workingHours={contactData.workingHours}
+            />
+          </motion.div>
         </div>
       </div>
     </section>
