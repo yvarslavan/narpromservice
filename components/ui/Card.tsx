@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { Maximize2 } from 'lucide-react';
 
 interface CardProps {
   title: string;
@@ -14,6 +15,7 @@ interface CardProps {
   number?: string;
   icon?: React.ReactNode;
   onClick?: () => void;
+  onImageClick?: () => void;
   className?: string;
 }
 
@@ -27,6 +29,7 @@ const Card: React.FC<CardProps> = ({
   number,
   icon,
   onClick,
+  onImageClick,
   className = ''
 }) => {
   const [imageError, setImageError] = useState(false);
@@ -65,13 +68,35 @@ const Card: React.FC<CardProps> = ({
       {/* Изображение для обычных карточек */}
       {image && variant === 'default' && (
         <div className="mb-4">
-          <Image
-            src={image}
-            alt={title}
-            width={400}
-            height={200}
-            className="w-full h-auto rounded-xl"
-          />
+          {onImageClick ? (
+            <div
+              className="cursor-pointer group relative rounded-xl overflow-hidden"
+              onClick={onImageClick}
+            >
+              <Image
+                src={image}
+                alt={title}
+                width={400}
+                height={200}
+                className="w-full h-auto rounded-xl transition-transform duration-300 group-hover:scale-105"
+              />
+
+              {/* Иконка увеличения */}
+              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <Maximize2 size={24} className="text-white" />
+                </div>
+              </div>
+            </div>
+          ) : (
+            <Image
+              src={image}
+              alt={title}
+              width={400}
+              height={200}
+              className="w-full h-auto rounded-xl"
+            />
+          )}
         </div>
       )}
 
@@ -79,15 +104,25 @@ const Card: React.FC<CardProps> = ({
       {image && variant === 'service' && (
         <div className="mb-4 relative">
           {!imageError ? (
-            <div className="w-full h-48 rounded-xl overflow-hidden">
+            <div
+              className="w-full h-48 rounded-xl overflow-hidden cursor-pointer group relative"
+              onClick={onImageClick}
+            >
               <Image
                 src={image}
                 alt={title}
                 width={400}
                 height={300}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 onError={() => setImageError(true)}
               />
+
+              {/* Иконка увеличения */}
+              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <Maximize2 size={24} className="text-white" />
+                </div>
+              </div>
             </div>
           ) : (
             <div className="w-full h-48 bg-gradient-to-br from-gray-200 to-gray-300 rounded-xl flex items-center justify-center">

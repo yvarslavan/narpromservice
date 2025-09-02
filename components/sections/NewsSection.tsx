@@ -1,54 +1,64 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import Card from '../ui/Card';
 import Navigation from '../ui/Navigation';
-import Button from '../ui/Button';
+import NewsFilter from '../ui/NewsFilter';
+import ImageModal from '../ui/ImageModal';
 
 const NewsSection: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const [selectedNewsItem, setSelectedNewsItem] = useState<any>(null);
+  const [activeFilter, setActiveFilter] = useState('all');
 
   const newsItems = [
     {
       title: 'Экологическая акция «Чистый лес»',
       description: '21 сентября команда в Наро-Фоминской Каменоломне провела экологическую акцию «Чистый лес».',
       date: '24.09.2024',
-      image: '/images/news-1.jpg' // Заглушка для изображения
+      image: '/images/news-1.jpg',
+      category: 'ecology'
     },
     {
       title: 'Высадка деревьев',
       description: 'По сложившейся традиции, группа активных сотрудников «Элинар» провела активные работы по высадке деревьев.',
       date: '18.09.2024',
-      image: '/images/news-2.jpg' // Заглушка для изображения
+      image: '/images/news-2.jpg',
+      category: 'ecology'
     },
     {
       title: 'Визит заместителя Министра сельского хозяйства РФ на предприятие «Элинар»',
       description: 'Представители группы компаний «Элинар» посетили стенд секретаря.',
       date: '08.04.2024',
-      image: '/images/news-3.jpg' // Заглушка для изображения
+      image: '/images/news-3.jpg',
+      category: 'events'
     },
     {
       title: 'Семинар «Снижаемые условия растениеводства Калужской области в современных условиях»',
       description: '2 апреля состоялся семинар «Снижаемые условия растениеводства Калужской области»',
       date: '03.04.2024',
-      image: '/images/news-4.jpg' // Заглушка для изображения
+      image: '/images/news-4.jpg',
+      category: 'events'
     },
     {
       title: 'Десятиклассники на заводе «Элинар»',
       description: 'Ученики 10 класса МБОУ Наро-Фоминской СОШ № 5 с углубленным изучением отдельных предметов отправились в экскурсию.',
       date: '14.03.2024',
-      image: '/images/news-5.jpg' // Заглушка для изображения
+      image: '/images/news-5.jpg',
+      category: 'social-responsibility'
     },
     {
       title: 'Открытая Зимняя спартакиада-2024',
       description: '2 марта на стадионе МГСЦ «Задира» с. Атепцево, ул. Лесобережная, состоялась Открытая Зимняя спартакиада 2024.',
       date: '02.03.2024',
-      image: '/images/news-6.jpg' // Заглушка для изображения
+      image: '/images/news-6.jpg',
+      category: 'healthy-lifestyle'
     }
   ];
 
   const itemsPerPage = 3;
-  const totalSlides = Math.ceil(newsItems.length / itemsPerPage);
 
   const handlePrevious = () => {
     setCurrentSlide(prev => Math.max(0, prev - 1));
@@ -62,7 +72,32 @@ const NewsSection: React.FC = () => {
     setCurrentSlide(index);
   };
 
-  const currentItems = newsItems.slice(
+  const handleImageClick = useCallback((newsItem: any) => {
+    setSelectedNewsItem(newsItem);
+    setIsImageModalOpen(true);
+  }, []);
+
+  const handleFilterChange = useCallback((filterId: string) => {
+    setActiveFilter(filterId);
+    setCurrentSlide(0); // Сбрасываем слайд при смене фильтра
+  }, []);
+
+  const filters = [
+    { id: 'all', label: 'Все', count: newsItems.length },
+    { id: 'healthy-lifestyle', label: 'Здоровый образ жизни', count: newsItems.filter(item => item.category === 'healthy-lifestyle').length },
+    { id: 'events', label: 'События', count: newsItems.filter(item => item.category === 'events').length },
+    { id: 'social-responsibility', label: 'Социальная ответственность', count: newsItems.filter(item => item.category === 'social-responsibility').length },
+    { id: 'ecology', label: 'Экология', count: newsItems.filter(item => item.category === 'ecology').length }
+  ];
+
+  // Фильтрация новостей
+  const filteredNews = activeFilter === 'all'
+    ? newsItems
+    : newsItems.filter(item => item.category === activeFilter);
+
+  const totalSlides = Math.ceil(filteredNews.length / itemsPerPage);
+
+  const currentItems = filteredNews.slice(
     currentSlide * itemsPerPage,
     (currentSlide + 1) * itemsPerPage
   );
@@ -77,29 +112,43 @@ const NewsSection: React.FC = () => {
           </h2>
 
           {/* Фильтры новостей */}
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <Button variant="active" size="small">Все</Button>
-            <Button variant="secondary" size="small">Здоровый образ жизни</Button>
-            <Button variant="secondary" size="small">События</Button>
-            <Button variant="secondary" size="small">Социальная ответственность</Button>
-            <Button variant="secondary" size="small">Экология</Button>
-          </div>
+          <NewsFilter
+            activeFilter={activeFilter}
+            onFilterChange={handleFilterChange}
+            filters={filters}
+          />
         </div>
 
         {/* Сетка новостей */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
+          key={activeFilter} // Ключ для анимации при смене фильтра
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           {currentItems.map((item, index) => (
-            <Card
-              key={currentSlide * itemsPerPage + index}
-              title={item.title}
-              description={item.description}
-              metadata={item.date}
-              image={item.image}
-              variant="default"
-              className="h-full"
-            />
+            <motion.div
+              key={`${activeFilter}-${currentSlide}-${index}`}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.4,
+                delay: index * 0.1
+              }}
+            >
+              <Card
+                title={item.title}
+                description={item.description}
+                metadata={item.date}
+                image={item.image}
+                variant="default"
+                onImageClick={() => handleImageClick(item)}
+                className="h-full"
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Навигация - используем компонент Navigation */}
         <div className="flex justify-center">
@@ -112,6 +161,18 @@ const NewsSection: React.FC = () => {
           />
         </div>
       </div>
+
+      {/* Модальное окно для просмотра изображения новости */}
+      {selectedNewsItem && (
+        <ImageModal
+          isOpen={isImageModalOpen}
+          onClose={() => setIsImageModalOpen(false)}
+          imageSrc={selectedNewsItem.image}
+          imageAlt={selectedNewsItem.title}
+          title={selectedNewsItem.title}
+          description={selectedNewsItem.description}
+        />
+      )}
     </section>
   );
 };

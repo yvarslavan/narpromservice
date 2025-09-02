@@ -1,12 +1,16 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import Card from '../ui/Card';
-import { Zap, Building2, Wrench, Hammer, Flame, Settings } from 'lucide-react';
+import { Zap, Building2, Wrench, Hammer, Flame, Settings, Maximize2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import ImageModal from '../ui/ImageModal';
 
 const ServicesSection: React.FC = () => {
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState<any>(null);
+
   const services = [
     {
       title: 'Электромонтажные работы',
@@ -76,6 +80,11 @@ const ServicesSection: React.FC = () => {
     }
   ];
 
+  const handleImageClick = useCallback((service: any) => {
+    setSelectedService(service);
+    setIsImageModalOpen(true);
+  }, []);
+
   return (
     <section id="services" className="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50">
       <div className="max-w-7xl mx-auto px-4">
@@ -112,12 +121,25 @@ const ServicesSection: React.FC = () => {
                 icon={service.icon}
                 iconButton={service.iconButton}
                 image={service.image}
+                onImageClick={() => handleImageClick(service)}
                 className="h-auto min-h-[500px] flex flex-col justify-between pb-16"
               />
             </motion.div>
           ))}
         </div>
       </div>
+
+      {/* Модальное окно для просмотра изображения услуги */}
+      {selectedService && (
+        <ImageModal
+          isOpen={isImageModalOpen}
+          onClose={() => setIsImageModalOpen(false)}
+          imageSrc={selectedService.image}
+          imageAlt={selectedService.title}
+          title={selectedService.title}
+          description={selectedService.description}
+        />
+      )}
     </section>
   );
 };
