@@ -1,19 +1,24 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Button from '../ui/Button';
 import Modal from '../ui/Modal';
 import ContactForm from '../forms/ContactForm';
-import { Briefcase, Settings, Headphones } from 'lucide-react';
+import { Briefcase, Settings, Headphones, Maximize2 } from 'lucide-react';
+import ImageModal from '../ui/ImageModal';
 
 const HeroSection: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [imageError, setImageError] = useState(false);
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
+  const handleImageClick = useCallback(() => {
+    setIsImageModalOpen(true);
+  }, []);
   const handleFormSubmit = (data: any) => {
     console.log('Form submitted:', data);
     handleCloseModal();
@@ -36,26 +41,31 @@ const HeroSection: React.FC = () => {
               {/* Левая часть - место для картинки */}
               <div className="flex justify-center lg:justify-start">
                 <div className="relative">
-                  <div className="w-80 h-96 relative">
-                    {!imageError ? (
-                      <div className="w-full h-full rounded-3xl overflow-hidden">
-                        <Image
-                          src="/images/hero-industrial.jpg"
-                          alt="Промышленное оборудование"
-                          width={320}
-                          height={384}
-                          className="w-full h-full object-cover"
-                          onError={() => setImageError(true)}
-                        />
-                      </div>
-                    ) : (
+                                     <div className="w-80 h-96 relative">
+                     {!imageError ? (
+                       <div className="w-full h-full rounded-3xl overflow-hidden cursor-pointer group" onClick={handleImageClick}>
+                         <Image
+                           src="/images/hero-engineer.jpg"
+                           alt="Инженерные мощности компании"
+                           width={320}
+                           height={384}
+                           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                           onError={() => setImageError(true)}
+                         />
+
+                         {/* Иконка увеличения */}
+                         <div className="absolute top-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-300">
+                           <Maximize2 size={24} />
+                         </div>
+                       </div>
+                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-blue-500/20 via-indigo-500/30 to-purple-600/20 rounded-3xl backdrop-blur-sm border-2 border-white/20 flex items-center justify-center">
                         <div className="text-center text-white">
-                          <div className="text-6xl mb-4">🏭</div>
-                          <div className="text-lg font-semibold mb-2">Промышленное оборудование</div>
+                          <div className="text-6xl mb-4">👷‍♂️</div>
+                          <div className="text-lg font-semibold mb-2">Инженерные мощности</div>
                           <div className="text-sm opacity-80">Разместите изображение по пути:</div>
                           <div className="text-xs font-mono bg-white/10 px-3 py-2 rounded-lg mt-2">
-                            /images/hero-industrial.jpg
+                            /images/hero-engineer.jpg
                           </div>
                         </div>
                       </div>
@@ -155,12 +165,22 @@ const HeroSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Модальное окно с формой */}
-      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <ContactForm onSubmit={handleFormSubmit} />
-      </Modal>
-    </section>
-  );
-};
+             {/* Модальное окно с формой */}
+       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+         <ContactForm onSubmit={handleFormSubmit} />
+       </Modal>
+
+       {/* Модальное окно для просмотра изображения */}
+       <ImageModal
+         isOpen={isImageModalOpen}
+         onClose={() => setIsImageModalOpen(false)}
+         imageSrc="/images/hero-engineer.jpg"
+         imageAlt="Инженерные мощности компании"
+         title="Инженерные мощности"
+         description="Современное инженерное оборудование и технические мощности нашей компании"
+       />
+     </section>
+   );
+ };
 
 export default HeroSection;
