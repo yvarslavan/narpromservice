@@ -7,8 +7,9 @@ import { X } from 'lucide-react';
 interface ImageModalProps {
   isOpen: boolean;
   onClose: () => void;
-  imageSrc: string;
-  imageAlt: string;
+  imageSrc?: string;
+  videoSrc?: string;
+  mediaAlt: string;
   title?: string;
   description?: string;
 }
@@ -17,7 +18,8 @@ const ImageModal: React.FC<ImageModalProps> = ({
   isOpen,
   onClose,
   imageSrc,
-  imageAlt,
+  videoSrc,
+  mediaAlt,
   title,
   description
 }) => {
@@ -58,11 +60,21 @@ const ImageModal: React.FC<ImageModalProps> = ({
           >
             {/* Изображение */}
             <div className="relative">
-              <img
-                src={imageSrc}
-                alt={imageAlt}
-                className="w-full h-auto max-h-[85vh] object-contain"
-              />
+              {imageSrc && (
+                <img
+                  src={imageSrc}
+                  alt={mediaAlt}
+                  className="w-full h-auto max-h-[85vh] object-contain"
+                />
+              )}
+              {videoSrc && (
+                <video
+                  src={videoSrc}
+                  controls
+                  autoPlay
+                  className="w-full h-auto max-h-[85vh] object-contain"
+                />
+              )}
 
               {/* Информация об изображении */}
               {(title || description) && (

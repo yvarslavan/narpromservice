@@ -10,13 +10,16 @@ interface CardProps {
   description: string;
   metadata?: string;
   image?: string;
+  video?: string;
   variant?: 'default' | 'service' | 'feature';
   iconButton?: React.ReactNode;
   number?: string;
   icon?: React.ReactNode;
   onClick?: () => void;
   onImageClick?: () => void;
+  onVideoClick?: () => void;
   className?: string;
+  link?: string;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -24,13 +27,16 @@ const Card: React.FC<CardProps> = ({
   description,
   metadata,
   image,
+  video,
   variant = 'default',
   iconButton,
   number,
   icon,
   onClick,
   onImageClick,
-  className = ''
+  onVideoClick,
+  className = '',
+  link
 }) => {
   const [imageError, setImageError] = useState(false);
 
@@ -66,7 +72,7 @@ const Card: React.FC<CardProps> = ({
       )}
 
       {/* Изображение для обычных карточек */}
-      {image && variant === 'default' && (
+      {image && variant === 'default' && !video && (
         <div className="mb-4">
           {onImageClick ? (
             <div
@@ -95,6 +101,45 @@ const Card: React.FC<CardProps> = ({
               width={400}
               height={200}
               className="w-full h-auto rounded-xl"
+            />
+          )}
+        </div>
+      )}
+
+      {/* Видео для обычных карточек */}
+      {video && variant === 'default' && (
+        <div className="mb-4">
+          {onVideoClick ? (
+            <div
+              className="cursor-pointer group relative rounded-xl overflow-hidden"
+              onClick={onVideoClick}
+            >
+              <video
+                src={video}
+                className="w-full h-auto rounded-xl transition-transform duration-300 group-hover:scale-105"
+                muted
+                loop
+                onMouseEnter={(e) => (e.target as HTMLVideoElement).play()}
+                onMouseLeave={(e) => (e.target as HTMLVideoElement).pause()}
+              />
+
+              {/* Иконка воспроизведения */}
+              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <video
+              src={video}
+              className="w-full h-auto rounded-xl"
+              muted
+              loop
+              onMouseEnter={(e) => (e.target as HTMLVideoElement).play()}
+              onMouseLeave={(e) => (e.target as HTMLVideoElement).pause()}
             />
           )}
         </div>
@@ -163,7 +208,13 @@ const Card: React.FC<CardProps> = ({
         className="text-xl font-bold text-gray-800 mb-3 relative group"
         whileHover={{ color: '#3B82F6' }}
       >
-        {title}
+        {link ? (
+          <a href={link} target="_blank" rel="noopener noreferrer" className="hover:underline">
+            {title}
+          </a>
+        ) : (
+          title
+        )}
         {/* Подчеркивание при hover */}
         <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-indigo-600 transition-all duration-300 group-hover:w-full"></div>
       </motion.h3>

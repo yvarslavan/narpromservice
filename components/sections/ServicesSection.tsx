@@ -135,7 +135,7 @@ const ServicesSection: React.FC = () => {
           isOpen={isImageModalOpen}
           onClose={() => setIsImageModalOpen(false)}
           imageSrc={selectedService.image}
-          imageAlt={selectedService.title}
+          mediaAlt={selectedService.title}
           title={selectedService.title}
           description={selectedService.description}
         />

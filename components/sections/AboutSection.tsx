@@ -218,7 +218,7 @@ const AboutSection: React.FC = () => {
          isOpen={isImageModalOpen}
          onClose={() => setIsImageModalOpen(false)}
          imageSrc="/images/hero-industrial.jpg"
-         imageAlt="Промышленные мощности компании"
+         mediaAlt="Промышленные мощности компании"
          title="Промышленные мощности"
          description="Современное производственное оборудование и промышленные мощности нашей компании"
        />

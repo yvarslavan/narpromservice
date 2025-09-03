@@ -175,7 +175,7 @@ const HeroSection: React.FC = () => {
          isOpen={isImageModalOpen}
          onClose={() => setIsImageModalOpen(false)}
          imageSrc="/images/hero-engineer.jpg"
-         imageAlt="Инженерные мощности компании"
+         mediaAlt="Инженерные мощности компании"
          title="Инженерные мощности"
          description="Современное инженерное оборудование и технические мощности нашей компании"
        />
