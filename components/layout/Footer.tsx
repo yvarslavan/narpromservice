@@ -60,7 +60,7 @@ const Footer: React.FC = () => {
               © Copyright. Все права защищены 2025
             </div>
             <div className="text-sm flex flex-wrap gap-4">
-              <a href="#privacy" className="text-white hover:text-opacity-80 transition-all duration-default hover:underline">
+              <a href="/privacy-policy" className="text-white hover:text-opacity-80 transition-all duration-default hover:underline">
                 Политика конфиденциальности
               </a>
               <a href="/cookie-policy" className="text-white hover:text-opacity-80 transition-all duration-default hover:underline">
