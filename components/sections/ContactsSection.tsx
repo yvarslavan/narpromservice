@@ -15,20 +15,28 @@ const ContactsSection: React.FC = () => {
   };
 
   return (
-    <section id="contacts" className="py-20 bg-neutral-light">
-      <div className="max-w-container mx-auto px-4">
+    <section id="contacts" className="py-24 bg-gray-50 relative overflow-hidden">
+      {/* Фоновые элементы */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 right-20 w-64 h-64 bg-orange-100/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-20 w-48 h-48 bg-blue-100/30 rounded-full blur-2xl"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
         {/* Заголовок секции */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-20"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 uppercase tracking-wider mb-4">
-            Контакты
+          <h2 className="text-4xl lg:text-6xl font-black text-gray-900 mb-6">
+            <span className="bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 bg-clip-text text-transparent">
+              Контакты
+            </span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-indigo-600 mx-auto rounded-full"></div>
-          <p className="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">
+          <div className="w-24 h-1 bg-gradient-to-r from-orange-500 to-orange-600 mx-auto rounded-full mb-6"></div>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Свяжитесь с нами любым удобным способом. Мы всегда готовы ответить на ваши вопросы и помочь в решении задач.
           </p>
         </motion.div>

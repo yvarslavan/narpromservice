@@ -489,7 +489,9 @@ const ContactForm: React.FC<ContactFormProps> = ({ onSubmit }) => {
           <label htmlFor="consent" className="text-sm text-gray-600 leading-relaxed cursor-pointer">
             Я соглашаюсь с{' '}
             <a
-              href="#privacy"
+              href="/privacy-policy"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-blue-600 hover:text-blue-700 underline hover:no-underline transition-colors duration-200 font-medium"
             >
               политикой конфиденциальности

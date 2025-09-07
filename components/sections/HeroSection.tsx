@@ -1,186 +1,167 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
 import Button from '../ui/Button';
 import Modal from '../ui/Modal';
 import ContactForm from '../forms/ContactForm';
-import { Briefcase, Settings, Headphones, Maximize2 } from 'lucide-react';
 import ImageModal from '../ui/ImageModal';
 
 const HeroSection: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
-  const [imageError, setImageError] = useState(false);
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
-  const handleImageClick = useCallback(() => {
-    setIsImageModalOpen(true);
-  }, []);
   const handleFormSubmit = (data: any) => {
     console.log('Form submitted:', data);
     handleCloseModal();
   };
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 overflow-hidden -mt-20 pt-20">
-      {/* Фоновые декоративные элементы */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-indigo-500/5 rounded-full blur-3xl"></div>
-      </div>
+    <section className="relative min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('/images/hero-new-cover.jpg')`,
+          backgroundSize: 'contain',
+          backgroundPosition: 'center center'
+        }}
+      />
 
-      {/* Основной контент */}
-      <div className="relative z-10">
-        <div className="flex-1 flex items-center py-20">
-          <div className="max-w-6xl mx-auto px-4 w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              {/* Левая часть - место для картинки */}
-              <div className="flex justify-center lg:justify-start">
-                <div className="relative">
-                                     <div className="w-80 h-96 relative">
-                     {!imageError ? (
-                       <div className="w-full h-full rounded-3xl overflow-hidden cursor-pointer group" onClick={handleImageClick}>
-                         <Image
-                           src="/images/hero-engineer.jpg"
-                           alt="Инженерные мощности компании"
-                           width={320}
-                           height={384}
-                           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                           onError={() => setImageError(true)}
-                         />
+      {/* Overlay for better text readability */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent" />
 
-                         {/* Иконка увеличения */}
-                         <div className="absolute top-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-300">
-                           <Maximize2 size={24} />
-                         </div>
-                       </div>
-                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-blue-500/20 via-indigo-500/30 to-purple-600/20 rounded-3xl backdrop-blur-sm border-2 border-white/20 flex items-center justify-center">
-                        <div className="text-center text-white">
-                          <div className="text-6xl mb-4">👷‍♂️</div>
-                          <div className="text-lg font-semibold mb-2">Инженерные мощности</div>
-                          <div className="text-sm opacity-80">Разместите изображение по пути:</div>
-                          <div className="text-xs font-mono bg-white/10 px-3 py-2 rounded-lg mt-2">
-                            /images/hero-engineer.jpg
-                          </div>
-                        </div>
-                      </div>
-                    )}
+      {/* Content Container */}
+      <div className="relative z-10 min-h-screen px-4 md:px-8 lg:px-16 py-8">
+        <div className="max-w-7xl mx-auto">
+          {/* Header Section */}
+          <div className="mb-12">
+            {/* Main Title - Более жирный и заметный */}
+            <h1 className="text-3xl md:text-4xl lg:text-6xl text-white leading-tight mb-6">
+              <span className="block mb-3 font-black text-shadow-lg">
+                Полный цикл услуг:
+              </span>
+              <span className="block text-orange-400 font-black text-shadow-lg mb-2">
+                от проектирования до сервисного обслуживания
+              </span>
+              <span className="block font-black text-shadow-lg">
+                промышленного оборудования и металлоконструкций
+              </span>
+            </h1>
 
-                    {/* Декоративные элементы поверх картинки */}
-                    <div className="absolute top-4 right-4 w-16 h-16 bg-blue-500/30 rounded-2xl backdrop-blur-sm animate-pulse"></div>
-                    <div className="absolute bottom-4 left-4 w-12 h-12 bg-indigo-500/40 rounded-xl backdrop-blur-sm animate-bounce"></div>
-                  </div>
-                </div>
+            {/* Subtitle and CTA Button - Side by Side */}
+            <div className="flex flex-col lg:flex-row items-start lg:items-center gap-6 max-w-5xl">
+              {/* Text Block */}
+              <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-xl border-l-4 border-orange-400 flex-1">
+                <p className="text-lg md:text-xl text-gray-800 leading-relaxed font-medium">
+                  Проектирование, изготовление, модернизация, монтаж и техническое обслуживание.
+                </p>
+                <p className="text-lg md:text-xl text-blue-700 font-semibold mt-2">
+                  Собственная производственная база с токарным и фрезерным оборудованием
+                </p>
               </div>
 
-              {/* Правая часть - текст и кнопка */}
-              <div className="space-y-8">
-                <div className="space-y-6">
-                  <h1 className="text-4xl lg:text-5xl font-bold text-white leading-tight">
-                  Комплексные услуги по изготовлению, монтажу и сервисному обслуживанию оборудования, включая производство металлоконструкций</h1>
+              {/* Animated CTA Button */}
+              <div className="flex-shrink-0">
+                <Button
+                  variant="primary"
+                  onClick={handleOpenModal}
+                  className="relative bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-8 py-4 text-lg font-bold rounded-2xl shadow-2xl hover:shadow-orange-500/25 transition-all duration-500 transform hover:scale-110 hover:-translate-y-2 overflow-hidden group"
+                >
+                  {/* Animated background effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                  <p className="text-xl text-white opacity-90 max-w-lg">
-                    Оставьте заявку на бесплатную консультацию, и мы свяжемся с вами в ближайшее время.
-                  </p>
-                </div>
+                  {/* Pulsing ring effect */}
+                  <div className="absolute inset-0 rounded-2xl border-2 border-orange-300 opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity duration-500"></div>
 
-                <div>
-                  <Button
-                    variant="primary"
-                    onClick={handleOpenModal}
-                    className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-10 py-4 text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
-                  >
-                    Получить консультацию
-                  </Button>
-                </div>
+                  {/* Shimmer effect */}
+                  <div className="absolute inset-0 -top-2 -left-2 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
+
+                  {/* Button text */}
+                  <span className="relative z-10 flex items-center gap-2">
+                    <span>Получить консультацию</span>
+                    <svg
+                      className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </span>
+                </Button>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Нижняя часть с тремя карточками */}
-        <div className="relative z-10 pb-20">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-              {/* Карточка 1 - Material Design */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 backdrop-blur-sm">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="text-3xl font-bold text-blue-600">01</div>
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center shadow-md">
-                      <Briefcase className="w-6 h-6 text-white" />
-                    </div>
-                  </div>
-                  <div className="space-y-3">
-                    <h3 className="text-xl font-bold text-gray-900">Опыт работы</h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      Более 10 лет успешного опыта в области технического обслуживания и эксплуатации производственного оборудования
-                    </p>
-                  </div>
+          {/* Three Feature Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-6xl mt-8">
+            {/* Card 01 */}
+            <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl p-5 shadow-xl transform hover:scale-105 transition-transform duration-300">
+              <div className="flex items-center mb-3">
+                <div className="bg-white/20 rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                  <span className="text-white text-lg font-bold">01</span>
                 </div>
+                <h3 className="text-lg text-white font-semibold">Собственное производство</h3>
               </div>
-
-              {/* Карточка 2 - Material Design */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 backdrop-blur-sm">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="text-3xl font-bold text-indigo-600">02</div>
-                    <div className="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-md">
-                      <Settings className="w-6 h-6 text-white" />
-                    </div>
-                  </div>
-                  <div className="space-y-3">
-                    <h3 className="text-xl font-bold text-gray-900">Системный подход к решению задач</h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      Обеспечим эффективность и устойчивость принятых решений.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Карточка 3 - Material Design */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 backdrop-blur-sm">
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="text-3xl font-bold text-purple-600">03</div>
-                    <div className="w-12 h-12 bg-purple-600 rounded-2xl flex items-center justify-center shadow-md">
-                      <Headphones className="w-6 h-6 text-white" />
-                    </div>
-                  </div>
-                  <div className="space-y-3">
-                    <h3 className="text-xl font-bold text-gray-900">Индивидуальный подход к каждому заказу</h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      Учитываем специфику объекта и персональные пожелания клиента.
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <p className="text-white/90 text-sm leading-relaxed">
+                Полный производственный цикл на собственных мощностях: от проектирования до финальной сборки с использованием современного токарного и фрезерного оборудования.
+              </p>
             </div>
+
+            {/* Card 02 */}
+            <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl p-5 shadow-xl transform hover:scale-105 transition-transform duration-300">
+              <div className="flex items-center mb-3">
+                <div className="bg-white/20 rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                  <span className="text-white text-lg font-bold">02</span>
+                </div>
+                <h3 className="text-lg text-white font-semibold">Гарантия качества решений</h3>
+              </div>
+              <p className="text-white/90 text-sm leading-relaxed">
+                Разрабатываем уникальные технические решения под специфику вашего производства с гарантией качества и соблюдением всех технических требований.
+              </p>
+            </div>
+
+            {/* Card 03 */}
+            <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl p-5 shadow-xl transform hover:scale-105 transition-transform duration-300">
+              <div className="flex items-center mb-3">
+                <div className="bg-white/20 rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                  <span className="text-white text-lg font-bold">03</span>
+                </div>
+                <h3 className="text-lg text-white font-semibold">Комплексное сопровождение</h3>
+              </div>
+              <p className="text-white/90 text-sm leading-relaxed">
+                Берем на себя весь процесс: от первичного анализа потребностей до постгарантийного обслуживания. Один подрядчик - полная ответственность за результат.
+              </p>
+            </div>
+          </div>
+
+          {/* Decorative Elements */}
+          <div className="flex justify-center items-center space-x-4 mt-12">
+            <div className="w-16 h-1 bg-orange-400 rounded"></div>
+            <div className="w-8 h-1 bg-blue-500 rounded"></div>
+            <div className="w-4 h-1 bg-emerald-500 rounded"></div>
           </div>
         </div>
       </div>
 
-             {/* Модальное окно с формой */}
-       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-         <ContactForm onSubmit={handleFormSubmit} />
-       </Modal>
+      {/* Модальное окно с формой */}
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        <ContactForm onSubmit={handleFormSubmit} />
+      </Modal>
 
-       {/* Модальное окно для просмотра изображения */}
-       <ImageModal
-         isOpen={isImageModalOpen}
-         onClose={() => setIsImageModalOpen(false)}
-         imageSrc="/images/hero-engineer.jpg"
-         mediaAlt="Инженерные мощности компании"
-         title="Инженерные мощности"
-         description="Современное инженерное оборудование и технические мощности нашей компании"
-       />
-     </section>
-   );
- };
+      {/* Модальное окно для просмотра изображения */}
+      <ImageModal
+        isOpen={isImageModalOpen}
+        onClose={() => setIsImageModalOpen(false)}
+        imageSrc="/images/hero-industrial.jpg"
+        mediaAlt="Промышленное оборудование"
+        title="Промышленные мощности"
+        description="Современное промышленное оборудование и технические мощности нашей компании"
+      />
+    </section>
+  );
+};
 
 export default HeroSection;

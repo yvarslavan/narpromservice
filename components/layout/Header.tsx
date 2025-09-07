@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Phone, Search, Menu, X, ChevronDown, Home, FolderOpen, Settings, Newspaper, ArrowRight, MapPin, Calendar, Users } from 'lucide-react';
+import { Phone, Search, Menu, X, ChevronDown, Home, FolderOpen, Settings, Newspaper, ArrowRight, MapPin, Users } from 'lucide-react';
 
 // Конфигурация языков
 const languages = [
@@ -208,15 +208,15 @@ const Header: React.FC = () => {
           <div className="flex items-center justify-between py-3">
 
             {/* Логотипы */}
-            <div className="flex items-center gap-6 min-w-[320px]">
-              <div className="flex items-center gap-6">
+            <div className="flex items-center gap-2 md:gap-4 lg:gap-6 min-w-[200px] md:min-w-[320px]">
+              <div className="flex items-center gap-2 md:gap-4 lg:gap-6">
                 {/* Логотип НарПромСервис */}
-                <div className="h-16 flex items-center justify-center">
+                <div className="h-12 md:h-16 flex items-center justify-center">
                   <a href="/" className="block group">
                     <img
                       src="/logos/narprom-logo.jpg"
                       alt="НарПромСервис"
-                      className="h-12 w-auto object-contain group-hover:scale-110 group-hover:drop-shadow-xl transition-all duration-500 ease-out filter group-hover:brightness-110"
+                      className="h-8 md:h-10 lg:h-12 w-auto object-contain group-hover:scale-110 group-hover:drop-shadow-xl transition-all duration-500 ease-out filter group-hover:brightness-110"
                       onError={(e) => {
                         console.log('Ошибка загрузки логотипа НарПромСервис, пробуем внешний URL');
                         e.currentTarget.src = "https://optim.tildacdn.com/tild6237-6261-4663-b064-336361316438/-/resize/249x/-/format/webp/LOGOTYPE_NAR_PROM_SE.png.webp";
@@ -229,17 +229,17 @@ const Header: React.FC = () => {
                         };
                       }}
                     />
-                    <div className="hidden h-12 flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold text-sm rounded-lg px-3 group-hover:scale-110 group-hover:drop-shadow-xl transition-all duration-500 ease-out shadow-lg">
+                    <div className="hidden h-8 md:h-10 lg:h-12 flex items-center justify-center bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold text-xs md:text-sm rounded-lg px-2 md:px-3 group-hover:scale-110 group-hover:drop-shadow-xl transition-all duration-500 ease-out shadow-lg">
                       НарПромСервис
                     </div>
                   </a>
                 </div>
 
-                {/* Разделитель */}
-                <div className="w-px h-12 bg-gray-300" />
+                {/* Разделитель - скрыт на мобильных */}
+                <div className="hidden md:block w-px h-8 md:h-12 bg-gray-300" />
 
-                {/* Логотип ELINAR */}
-                <div className="h-16 flex items-center justify-center">
+                {/* Логотип ELINAR - скрыт на мобильных */}
+                <div className="hidden md:flex h-12 md:h-16 items-center justify-center">
                   <a
                     href="https://elinar.ru/"
                     target="_blank"
@@ -249,7 +249,7 @@ const Header: React.FC = () => {
                     <img
                       src="/logos/elinar-logo.jpg"
                       alt="ELINAR"
-                      className="h-10 w-auto object-contain group-hover:scale-110 group-hover:drop-shadow-xl transition-all duration-500 ease-out filter group-hover:brightness-110"
+                      className="h-8 md:h-10 w-auto object-contain group-hover:scale-110 group-hover:drop-shadow-xl transition-all duration-500 ease-out filter group-hover:brightness-110"
                       onError={(e) => {
                         console.log('Ошибка загрузки логотипа ELINAR, пробуем внешний URL');
                         e.currentTarget.src = "https://elinar.ru/wp-content/uploads/2017/10/logo-en.png";
@@ -262,7 +262,7 @@ const Header: React.FC = () => {
                         };
                       }}
                     />
-                    <div className="hidden h-10 flex items-center justify-center bg-gradient-to-r from-orange-600 to-orange-700 text-white font-bold text-sm rounded-lg px-3 group-hover:scale-110 group-hover:drop-shadow-xl transition-all duration-500 ease-out shadow-lg">
+                    <div className="hidden h-8 md:h-10 flex items-center justify-center bg-gradient-to-r from-orange-600 to-orange-700 text-white font-bold text-xs md:text-sm rounded-lg px-2 md:px-3 group-hover:scale-110 group-hover:drop-shadow-xl transition-all duration-500 ease-out shadow-lg">
                       ELINAR
                     </div>
                   </a>
@@ -270,31 +270,42 @@ const Header: React.FC = () => {
               </div>
             </div>
 
-            {/* Десктопная навигация */}
-            <nav className="hidden lg:flex items-center gap-4 ml-6">
+            {/* Десктопная навигация - современный стиль */}
+            <nav className="hidden lg:flex items-center gap-2 ml-8">
               {navigationItems.map((item, index) => {
                 const IconComponent = item.icon;
-                // Цвета для каждой иконки
+                // Современные цвета для каждой иконки
                 const iconColors = [
-                  'from-orange-500 to-red-500', // О компании - оранжевый
-                  'from-blue-500 to-indigo-500', // Проекты - синий
-                  'from-green-500 to-emerald-500', // Услуги - зеленый
-                  'from-purple-500 to-pink-500', // Новости - фиолетовый
-                  'from-cyan-500 to-blue-500', // Контакты - циан
+                  'from-orange-500 to-orange-600', // О компании - оранжевый
+                  'from-blue-500 to-blue-600', // Проекты - синий
+                  'from-emerald-500 to-emerald-600', // Услуги - зеленый
+                  'from-purple-500 to-purple-600', // Новости - фиолетовый
+                  'from-cyan-500 to-cyan-600', // Контакты - циан
                 ];
 
                 return (
                   <div key={item.href} className="relative group">
                     <a
                       href={item.href}
-                      className="flex items-center gap-2 px-4 py-2 text-gray-800 font-semibold text-sm transition-all duration-300 rounded-lg hover:text-white hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-600 group overflow-hidden"
+                      className="flex items-center gap-3 px-5 py-3 text-gray-700 font-medium text-sm transition-all duration-300 rounded-xl hover:text-white hover:shadow-lg group overflow-hidden relative"
                     >
+                      {/* Фоновый градиент при hover */}
+                      <div className={`absolute inset-0 bg-gradient-to-r ${iconColors[index]} opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl`}></div>
+
+                      {/* Иконка */}
                       {IconComponent && (
-                        <div className={`w-7 h-7 bg-gradient-to-r ${iconColors[index]} rounded-md flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-3`}>
-                          <IconComponent size={15} className="text-white group-hover:scale-110 transition-transform duration-300" />
+                        <div className={`w-8 h-8 bg-gradient-to-r ${iconColors[index]} rounded-lg flex items-center justify-center shadow-md group-hover:shadow-xl transition-all duration-300 group-hover:scale-110 relative z-10`}>
+                          <IconComponent size={16} className="text-white group-hover:scale-110 transition-transform duration-300" />
                         </div>
                       )}
-                      <span className="hidden xl:inline">{item.label}</span>
+
+                      {/* Текст */}
+                      <span className="relative z-10 whitespace-nowrap font-semibold group-hover:text-white transition-colors duration-300">
+                        {item.label}
+                      </span>
+
+                      {/* Подчеркивание при hover */}
+                      <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300 rounded-full"></div>
                     </a>
                   </div>
                 );
@@ -302,9 +313,9 @@ const Header: React.FC = () => {
             </nav>
 
             {/* Правая часть */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 md:gap-3">
 
-              {/* Языковой переключатель */}
+              {/* Языковой переключатель - скрыт на мобильных */}
               <div className="relative hidden md:block">
                 <button
                   onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}
@@ -335,8 +346,8 @@ const Header: React.FC = () => {
                 )}
               </div>
 
-              {/* Иконки поиска и звонка */}
-              <div className="flex items-center gap-2">
+              {/* Иконки поиска и звонка - скрыты на мобильных */}
+              <div className="hidden md:flex items-center gap-2">
                 <button
                   onClick={toggleSearch}
                   className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-colors duration-300"
@@ -352,12 +363,12 @@ const Header: React.FC = () => {
                 </button>
               </div>
 
-              {/* Мобильное бургер-меню */}
+              {/* Мобильное бургер-меню - УЛУЧШЕННЫЙ */}
               <button
                 onClick={toggleMobileMenu}
-                className="lg:hidden w-10 h-10 flex items-center justify-center text-gray-800 hover:bg-gray-100 rounded-lg transition-colors duration-200 border border-gray-200"
+                className="lg:hidden w-12 h-12 flex items-center justify-center text-white bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl border-2 border-blue-400 hover:border-blue-500"
               >
-                {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                {isMobileMenuOpen ? <X size={24} className="text-white" /> : <Menu size={24} className="text-white" />}
               </button>
             </div>
           </div>
@@ -374,10 +385,10 @@ const Header: React.FC = () => {
           />
 
           {/* Выезжающее меню */}
-          <div className="fixed top-0 right-0 h-full w-80 bg-white shadow-2xl z-50 lg:hidden overflow-y-auto">
+          <div className="fixed top-0 right-0 h-full w-72 sm:w-80 bg-white shadow-2xl z-50 lg:hidden overflow-y-auto">
             {/* Заголовок мобильного меню */}
-            <div className="flex items-center justify-between p-6 border-b border-gray-200">
-              <h3 className="text-xl font-bold text-gray-800">Меню</h3>
+            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-800">Меню</h3>
               <button
                 onClick={closeMobileMenu}
                 className="w-10 h-10 flex items-center justify-center text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-xl transition-colors duration-200"
@@ -386,32 +397,45 @@ const Header: React.FC = () => {
               </button>
             </div>
 
-            {/* Мобильная навигация */}
-            <nav className="p-6 space-y-3">
+            {/* Мобильная навигация - современный стиль */}
+            <nav className="p-4 sm:p-6 space-y-2">
               {navigationItems.map((item, index) => {
                 const IconComponent = item.icon;
-                // Цвета для каждой иконки (те же, что и в десктопе)
+                // Современные цвета для каждой иконки
                 const iconColors = [
-                  'from-orange-500 to-red-500', // О компании - оранжевый
-                  'from-blue-500 to-indigo-500', // Проекты - синий
-                  'from-green-500 to-emerald-500', // Услуги - зеленый
-                  'from-purple-500 to-pink-500', // Новости - фиолетовый
-                  'from-cyan-500 to-blue-500', // Контакты - циан
+                  'from-orange-500 to-orange-600', // О компании - оранжевый
+                  'from-blue-500 to-blue-600', // Проекты - синий
+                  'from-emerald-500 to-emerald-600', // Услуги - зеленый
+                  'from-purple-500 to-purple-600', // Новости - фиолетовый
+                  'from-cyan-500 to-cyan-600', // Контакты - циан
                 ];
 
                 return (
-                  <div key={item.href}>
+                  <div key={item.href} className="relative group">
                     <a
                       href={item.href}
                       onClick={closeMobileMenu}
-                      className="flex items-center gap-4 px-6 py-4 text-gray-800 font-semibold text-base hover:text-white hover:bg-gradient-to-r hover:from-orange-500 hover:to-orange-600 rounded-xl transition-all duration-200"
+                      className="flex items-center gap-3 sm:gap-4 px-4 sm:px-6 py-3 sm:py-4 text-gray-700 font-semibold text-sm sm:text-base transition-all duration-300 rounded-xl hover:text-white hover:shadow-lg group overflow-hidden relative"
                     >
+                      {/* Фоновый градиент при hover */}
+                      <div className={`absolute inset-0 bg-gradient-to-r ${iconColors[index]} opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl`}></div>
+
+                      {/* Иконка */}
                       {IconComponent && (
-                        <div className={`w-10 h-10 bg-gradient-to-r ${iconColors[index]} rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-all duration-300 hover:scale-110 hover:rotate-3`}>
-                          <IconComponent size={20} className="text-white hover:scale-110 transition-transform duration-300" />
+                        <div className={`w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r ${iconColors[index]} rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110 relative z-10`}>
+                          <IconComponent size={16} className="sm:w-5 sm:h-5 text-white group-hover:scale-110 transition-transform duration-300" />
                         </div>
                       )}
-                      <span>{item.label}</span>
+
+                      {/* Текст */}
+                      <span className="relative z-10 whitespace-nowrap group-hover:text-white transition-colors duration-300">
+                        {item.label}
+                      </span>
+
+                      {/* Стрелка */}
+                      <div className="ml-auto relative z-10">
+                        <ArrowRight size={14} className="sm:w-4 sm:h-4 text-gray-400 group-hover:text-white group-hover:translate-x-1 transition-all duration-300" />
+                      </div>
                     </a>
                   </div>
                 );
@@ -419,22 +443,22 @@ const Header: React.FC = () => {
             </nav>
 
             {/* Мобильный языковой переключатель */}
-            <div className="p-6 border-t border-gray-200">
-              <div className="space-y-4">
-                <h4 className="text-sm font-bold text-gray-600 uppercase tracking-wide">Язык</h4>
-                <div className="grid grid-cols-1 gap-3">
+            <div className="p-4 sm:p-6 border-t border-gray-200">
+              <div className="space-y-3 sm:space-y-4">
+                <h4 className="text-xs sm:text-sm font-bold text-gray-600 uppercase tracking-wide">Язык</h4>
+                <div className="grid grid-cols-1 gap-2 sm:gap-3">
                   {languages.map((lang) => (
                     <button
                       key={lang.code}
                       onClick={() => handleLanguageSelect(lang)}
-                      className={`text-left px-6 py-4 rounded-xl transition-all duration-200 flex items-center gap-4 ${
+                      className={`text-left px-4 sm:px-6 py-3 sm:py-4 rounded-lg sm:rounded-xl transition-all duration-200 flex items-center gap-3 sm:gap-4 ${
                         currentLanguage.code === lang.code
                           ? 'bg-cyan-50 text-cyan-600 border-2 border-cyan-200'
                           : 'hover:bg-gray-50 text-gray-800 border-2 border-transparent'
                       }`}
                     >
-                      <span className="text-xl">{lang.flag}</span>
-                      <span className="font-bold text-base">{lang.name}</span>
+                      <span className="text-lg sm:text-xl">{lang.flag}</span>
+                      <span className="font-bold text-sm sm:text-base">{lang.name}</span>
                     </button>
                   ))}
                 </div>
@@ -442,18 +466,18 @@ const Header: React.FC = () => {
             </div>
 
             {/* Мобильные контактные иконки */}
-            <div className="p-6 border-t border-gray-200">
-              <h4 className="text-sm font-bold text-gray-600 uppercase tracking-wide mb-4">Контакты</h4>
-              <div className="flex gap-3">
+            <div className="p-4 sm:p-6 border-t border-gray-200">
+              <h4 className="text-xs sm:text-sm font-bold text-gray-600 uppercase tracking-wide mb-3 sm:mb-4">Контакты</h4>
+              <div className="flex gap-2 sm:gap-3">
                 <button
                   onClick={() => {
                     closeMobileMenu();
                     toggleSearch();
                   }}
-                  className="flex-1 h-14 bg-blue-500 rounded-xl flex items-center justify-center gap-3 shadow-lg hover:bg-blue-600 transition-colors duration-300"
+                  className="flex-1 h-12 sm:h-14 bg-blue-500 rounded-lg sm:rounded-xl flex items-center justify-center gap-2 sm:gap-3 shadow-lg hover:bg-blue-600 transition-colors duration-300"
                 >
-                  <Search size={20} className="text-white" />
-                  <span className="text-white font-bold text-base">Поиск</span>
+                  <Search size={18} className="sm:w-5 sm:h-5 text-white" />
+                  <span className="text-white font-bold text-sm sm:text-base">Поиск</span>
                 </button>
 
                 <button
@@ -462,10 +486,10 @@ const Header: React.FC = () => {
                     // Инициализация телефонного звонка
                     window.location.href = 'tel:+74955090316';
                   }}
-                  className="flex-1 h-14 bg-cyan-500 rounded-xl flex items-center justify-center gap-3 shadow-lg hover:bg-cyan-600 transition-colors duration-300"
+                  className="flex-1 h-12 sm:h-14 bg-cyan-500 rounded-lg sm:rounded-xl flex items-center justify-center gap-2 sm:gap-3 shadow-lg hover:bg-cyan-600 transition-colors duration-300"
                 >
-                  <Phone size={20} className="text-white" />
-                  <span className="text-white font-bold text-base">Звонок</span>
+                  <Phone size={18} className="sm:w-5 sm:h-5 text-white" />
+                  <span className="text-white font-bold text-sm sm:text-base">Звонок</span>
                 </button>
               </div>
             </div>

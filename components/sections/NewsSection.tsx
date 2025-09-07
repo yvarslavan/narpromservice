@@ -15,15 +15,6 @@ const NewsSection: React.FC = () => {
 
   const newsItems = [
     {
-      id: 1,
-      title: 'Восстановление и модернизация пешеходного фонтана',
-      description: 'Мы рады сообщить об успешном завершении работ по восстановлению и модернизации городского пешеходного фонтана, который находился в нерабочем состоянии более двух лет.',
-      date: '02.09.2025',
-      video: '/videos/fountain-construction-1.mp4',
-      category: 'projects',
-      link: '/news/fountain-construction'
-    },
-    {
       title: 'Экологическая акция «Чистый лес»',
       description: '21 сентября команда в Наро-Фоминской Каменоломне провела экологическую акцию «Чистый лес».',
       date: '24.09.2024',
@@ -93,7 +84,6 @@ const NewsSection: React.FC = () => {
 
   const filters = [
     { id: 'all', label: 'Все', count: newsItems.length },
-    { id: 'projects', label: 'Проекты', count: newsItems.filter(item => item.category === 'projects').length },
     { id: 'healthy-lifestyle', label: 'Здоровый образ жизни', count: newsItems.filter(item => item.category === 'healthy-lifestyle').length },
     { id: 'events', label: 'События', count: newsItems.filter(item => item.category === 'events').length },
     { id: 'social-responsibility', label: 'Социальная ответственность', count: newsItems.filter(item => item.category === 'social-responsibility').length },
@@ -113,12 +103,20 @@ const NewsSection: React.FC = () => {
   );
 
   return (
-    <section id="news" className="py-20 bg-neutral-light">
-      <div className="max-w-container mx-auto px-4">
+    <section id="news" className="py-24 bg-gray-50 relative overflow-hidden">
+      {/* Фоновые элементы */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 right-20 w-64 h-64 bg-orange-100/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-20 w-48 h-48 bg-blue-100/30 rounded-full blur-2xl"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
         {/* Заголовок секции */}
-        <div className="text-center mb-16">
-          <h2 className="text-h1 font-bold text-text-heading uppercase tracking-wider mb-8">
-            Новости
+        <div className="text-center mb-20">
+          <h2 className="text-4xl lg:text-6xl font-black text-gray-900 mb-6">
+            <span className="bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 bg-clip-text text-transparent">
+              Новости
+            </span>
           </h2>
 
           {/* Фильтры новостей */}
@@ -152,12 +150,9 @@ const NewsSection: React.FC = () => {
                 description={item.description}
                 metadata={item.date}
                 image={item.image}
-                video={item.video}
                 variant="default"
                 onImageClick={() => handleImageClick(item)}
-                onVideoClick={() => handleImageClick(item)}
                 className="h-full"
-                link={item.link}
               />
             </motion.div>
           ))}

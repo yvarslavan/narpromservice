@@ -58,23 +58,22 @@ const ImageModal: React.FC<ImageModalProps> = ({
             exit={{ scale: 0.8, opacity: 0 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
           >
-            {/* Изображение */}
+            {/* Медиа контент */}
             <div className="relative">
-              {imageSrc && (
-                <img
-                  src={imageSrc}
-                  alt={mediaAlt}
-                  className="w-full h-auto max-h-[85vh] object-contain"
-                />
-              )}
-              {videoSrc && (
+              {videoSrc ? (
                 <video
                   src={videoSrc}
                   controls
                   autoPlay
                   className="w-full h-auto max-h-[85vh] object-contain"
                 />
-              )}
+              ) : imageSrc ? (
+                <img
+                  src={imageSrc}
+                  alt={mediaAlt}
+                  className="w-full h-auto max-h-[85vh] object-contain"
+                />
+              ) : null}
 
               {/* Информация об изображении */}
               {(title || description) && (

@@ -14,6 +14,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NODE_ENV === 'production'
+    ? 'https://narpromservice.ru'
+    : 'http://localhost:3000'),
   title: 'НарПромСервис - Промышленные услуги и решения',
   description: 'Полный комплекс услуг по проектированию, производству, монтажу оборудования и металлоконструкций.',
   keywords: 'промышленность, металлоконструкции, монтаж, оборудование, проектирование',
@@ -28,7 +31,7 @@ export default function RootLayout({
     <html lang="ru" className={inter.variable}>
       <body className={`${inter.className} font-primary antialiased`}>
         <Header />
-        <main className="min-h-screen">
+        <main className="min-h-screen pt-20">
           {children}
         </main>
         <Footer />

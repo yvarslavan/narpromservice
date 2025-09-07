@@ -72,6 +72,16 @@ const StepsSection: React.FC = () => {
   const getColorClasses = (color: string) => {
     const colorMap = {
       blue: {
+        number: 'text-orange-600',
+        icon: 'text-orange-500',
+        iconBg: 'bg-orange-100',
+        border: 'border-orange-200',
+        hoverBorder: 'hover:border-orange-400',
+        hoverNumber: 'group-hover:text-orange-700',
+        hoverIcon: 'group-hover:text-orange-600',
+        progress: 'bg-orange-500'
+      },
+      indigo: {
         number: 'text-blue-600',
         icon: 'text-blue-500',
         iconBg: 'bg-blue-100',
@@ -81,91 +91,81 @@ const StepsSection: React.FC = () => {
         hoverIcon: 'group-hover:text-blue-600',
         progress: 'bg-blue-500'
       },
-      indigo: {
-        number: 'text-indigo-600',
-        icon: 'text-indigo-500',
-        iconBg: 'bg-indigo-100',
-        border: 'border-indigo-200',
-        hoverBorder: 'hover:border-indigo-400',
-        hoverNumber: 'group-hover:text-indigo-700',
-        hoverIcon: 'group-hover:text-indigo-600',
-        progress: 'bg-indigo-500'
-      },
       purple: {
-        number: 'text-purple-600',
-        icon: 'text-purple-500',
-        iconBg: 'bg-purple-100',
-        border: 'border-purple-200',
-        hoverBorder: 'hover:border-purple-400',
-        hoverNumber: 'group-hover:text-purple-700',
-        hoverIcon: 'group-hover:text-purple-600',
-        progress: 'bg-purple-500'
+        number: 'text-emerald-600',
+        icon: 'text-emerald-500',
+        iconBg: 'bg-emerald-100',
+        border: 'border-emerald-200',
+        hoverBorder: 'hover:border-emerald-400',
+        hoverNumber: 'group-hover:text-emerald-700',
+        hoverIcon: 'group-hover:text-emerald-600',
+        progress: 'bg-emerald-500'
       },
       pink: {
-        number: 'text-pink-600',
-        icon: 'text-pink-500',
-        iconBg: 'bg-pink-100',
-        border: 'border-pink-200',
-        hoverBorder: 'hover:border-pink-400',
-        hoverNumber: 'group-hover:text-pink-700',
-        hoverIcon: 'group-hover:text-pink-600',
-        progress: 'bg-pink-500'
+        number: 'text-orange-600',
+        icon: 'text-orange-500',
+        iconBg: 'bg-orange-100',
+        border: 'border-orange-200',
+        hoverBorder: 'hover:border-orange-400',
+        hoverNumber: 'group-hover:text-orange-700',
+        hoverIcon: 'group-hover:text-orange-600',
+        progress: 'bg-orange-500'
       },
       cyan: {
-        number: 'text-cyan-600',
-        icon: 'text-cyan-500',
-        iconBg: 'bg-cyan-100',
-        border: 'border-cyan-200',
-        hoverBorder: 'hover:border-cyan-400',
-        hoverNumber: 'group-hover:text-cyan-700',
-        hoverIcon: 'group-hover:text-cyan-600',
-        progress: 'bg-cyan-500'
+        number: 'text-blue-600',
+        icon: 'text-blue-500',
+        iconBg: 'bg-blue-100',
+        border: 'border-blue-200',
+        hoverBorder: 'hover:border-blue-400',
+        hoverNumber: 'group-hover:text-blue-700',
+        hoverIcon: 'group-hover:text-blue-600',
+        progress: 'bg-blue-500'
       },
       green: {
-        number: 'text-green-600',
-        icon: 'text-green-500',
-        iconBg: 'bg-green-100',
-        border: 'border-green-200',
-        hoverBorder: 'hover:border-green-400',
-        hoverNumber: 'group-hover:text-green-700',
-        hoverIcon: 'group-hover:text-green-600',
-        progress: 'bg-green-500'
+        number: 'text-emerald-600',
+        icon: 'text-emerald-500',
+        iconBg: 'bg-emerald-100',
+        border: 'border-emerald-200',
+        hoverBorder: 'hover:border-emerald-400',
+        hoverNumber: 'group-hover:text-emerald-700',
+        hoverIcon: 'group-hover:text-emerald-600',
+        progress: 'bg-emerald-500'
       }
     };
     return colorMap[color as keyof typeof colorMap] || colorMap.blue;
   };
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden">
+    <section className="py-24 bg-white relative overflow-hidden">
       {/* Фоновые геометрические элементы */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 right-20 w-64 h-64 bg-blue-100/30 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-20 w-48 h-48 bg-purple-100/30 rounded-full blur-2xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-blue-50/20 to-purple-50/20 rounded-full blur-3xl"></div>
+        <div className="absolute top-20 right-20 w-64 h-64 bg-orange-100/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-20 w-48 h-48 bg-blue-100/30 rounded-full blur-2xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-orange-50/20 to-blue-50/20 rounded-full blur-3xl"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         {/* Заголовок секции */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
           <motion.h2
-            className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
+            className="text-4xl lg:text-6xl font-black text-gray-900 mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 bg-clip-text text-transparent">
               Этапы работы
             </span>
           </motion.h2>
           <motion.p
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
+            className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -269,7 +269,7 @@ const StepsSection: React.FC = () => {
         >
           <motion.button
             onClick={handleOpenModal}
-            className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 hover:from-blue-700 hover:via-purple-700 hover:to-indigo-700 text-white px-12 py-4 text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 relative overflow-hidden group"
+            className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-12 py-4 text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 relative overflow-hidden group"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
